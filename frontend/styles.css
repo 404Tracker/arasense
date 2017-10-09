@@ -98,3 +98,24 @@ header {
 .f-j-center {
   justify-content: center;
 }
+.blur-0 {
+  filter: blur(0px);
+}
+.blur-6 {
+  filter: blur(6px);
+}
+.transition-3 {
+  transition: all 3s ease-in-out;
+}
+.transition-4 {
+  transition: all .35s ease-in-out;
+}
+.will-change-filter {
+  will-change: filter;
+}
+.will-change-tranform {
+  will-change: transform;
+}
+.translate-x-100per {
+  transform: translateX(-100%);
+}

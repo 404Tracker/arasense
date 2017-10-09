@@ -2,8 +2,9 @@
 <html dir="rtl" lang="ar">
   <head>
     <title>arasense</title>
-    <meta name="viewport" content="width=device-width; initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/odometer-theme-default.css">
   </head>
   <body>
     <header class="d-flex f-j-sb f-a-center p-0-20">
@@ -30,38 +31,39 @@
         </defs>
       </svg>
       <div>
-        التغريدة رقم: ١
+        التغريدة رقم: <span id="number" class="odometer ltr"></span>
       </div>
     </header>
 
     <main>
       <h1 class="p-0-20">هل التغريدة التالية تدعم قيادة المرأة</h1>
-      <div class="b-t-1 b-b-1 p-10-20">
+      <div id="tweet" class="b-t-1 b-b-1 p-10-20 transition-4 will-change-tranform">
         <div class="d-flex">
-          <img class="f-as-start" src="http://placehold.it/77" alt="Generic placeholder image">
+          <img id="avatar" class="f-as-start transition-3 blur-0 will-change-filter" src="http://placehold.it/77" alt="Generic placeholder image">
           <div class="d-flex f-dir-column m-r-10">
-            <h5 class="m-0 f-s-16">عائض القرني</h5>
-            <h6 class="m-0 m-t-10 o-4 f-s-11">dr_alqarnee@</h6>
+            <h5 id="username" class="m-0 f-s-16 transition-3 blur-0 will-change-filter">عائض القرني</h5>
+            <h6 id="twitter-handle" class="m-0 m-t-10 o-4 f-s-11 transition-3 blur-0 will-change-filter">dr_alqarnee@</h6>
           </div>
         </div>
         <div>
-          <p class="m-t-10 m-b-0">مسيرة في كورنيش العاصمة الإماراتية 🇦🇪أبوظبي بمناسبة تأهل مصر لكأس العالم #مصر_في_روسيا_2018</p>
+          <p id="tweet-body" class="m-t-10 m-b-0 transition-3 blur-0 will-change-filter">مسيرة في كورنيش العاصمة الإماراتية 🇦🇪أبوظبي بمناسبة تأهل مصر لكأس العالم #مصر_في_روسيا_2018</p>
           <!-- <img class="m-t-10 m-b-0" src="http://placehold.it/200" alt=""> -->
         </div>
       </div>
 
       <div class="d-flex f-j-sb p-20">
-        <div class="d-flex f-j-center f-a-center border-radius-50per b-none w75 h75 bg-green">
+        <div id="yes" tabindex="0" class="d-flex f-j-center f-a-center border-radius-50per b-none w75 h75 bg-green">
           نعم
         </div>
-        <div class="d-flex f-j-center f-a-center border-radius-50per b-none w75 h75 bg-grayblue">
+        <div id="dontKnow" tabindex="0" class="d-flex f-j-center f-a-center border-radius-50per b-none w75 h75 bg-grayblue">
           لا أعرف
         </div>
-        <div class="d-flex f-j-center f-a-center border-radius-50per b-none w75 h75 bg-orangered">
+        <div id="no" tabindex="0" class="d-flex f-j-center f-a-center border-radius-50per b-none w75 h75 bg-orangered">
           لا
         </div>
       </div>
     </main>
     <script src="/javascript.js"></script>
+    <script src="/odometer.min.js"></script>
   </body>
 </html>
