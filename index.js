@@ -1,13 +1,7 @@
 const express = require('express');
 const app = express();
 
-app.get('/', function(req, res) {
-  /**
-   * Here we will send the actual frontend ( index.html and its css with some js ) for the browser to run the app
-   * but right now it is just a Hello Planet text that we are sending
-   */
-  res.send('<center>Hello Planet</center>')
-});
+app.use('/', express.static('frontend'));
 
 app.post('/save-tweet', function(req, res) {
   /**
@@ -21,10 +15,12 @@ app.get('/get-new-tweet', function(req, res) {
    * 
    * maybe like so
    * 
-   * let newTweetToShowItToUser = selectNextTweetCarefully(req);
    * 
    * your function is selectNextTweetCarefully
    */
+
+  let newTweetToShowItToUser = selectNextTweetCarefully(req);
+
 });
 
 
