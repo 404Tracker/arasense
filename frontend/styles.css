@@ -1,0 +1,100 @@
+body, html {
+  margin: 0px;
+  padding: 0px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: normal;
+  line-height: 1.5;
+}
+* {
+  box-sizing: border-box;
+}
+header {
+  height: 52px;
+  width: 100vw;
+  background-color: #E0C677;
+}
+.d-flex {
+  display: flex;
+}
+.f-j-sb {
+  justify-content: space-between;
+}
+.f-a-center {
+  align-items: center;
+}
+.f-as-start {
+  align-self: flex-start;
+}
+.p-0-20 {
+  padding: 0px 20px;
+}
+.p-10-20 {
+  padding: 10px 20px;
+}
+.p-10 {
+  padding: 30px;
+}
+.p-20 {
+  padding: 20px;
+}
+.m-t-10 {
+  margin-top: 10px;
+}
+.m-b-0 {
+  margin-bottom: 0px;
+}
+.m-0 {
+  margin: 0px;
+}
+.ltr {
+  direction: ltr;
+}
+.f-s-11 {
+  font-size: 11px;
+}
+.f-s-16 {
+  font-size: 16px;
+}
+.m-r-10 {
+  margin-right: 10px;
+}
+.f-dir-column {
+  flex-direction: column;
+}
+.o-4 {
+  opacity: .4;
+}
+.b-t-1 {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color:#cccccc;
+}
+.b-b-1 {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color:#cccccc;
+}
+.border-radius-50per {
+  border-radius: 50%;
+}
+.b-none {
+  border: none;
+}
+.bg-green {
+  background-color: #60BF60;
+}
+.bg-grayblue {
+  background-color: #C5CED1;
+}
+.bg-orangered {
+  background-color: #F39B75;
+}
+.w75 {
+  width: 75px;
+}
+.h75 {
+  height: 75px;
+}
+.f-j-center {
+  justify-content: center;
+}
