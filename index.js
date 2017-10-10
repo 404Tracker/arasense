@@ -1,31 +1,42 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+const fs = require('fs');
 
+app.use(bodyParser.json());
 app.use('/', express.static('frontend'));
 
-app.post('/save-tweet', function(req, res) {
-  /**
-   * Here we will save tweet and some analysis should be done to the variable "req" to extract posted data
-   */
+const sampeTweets = fs.readFileSync('sample-tweets.json.txt', 'UTF-8');
+// let arrayOfJsons = sampeTweets.split('\n');
+// console.log(JSON.parse(arrayOfJsons[0]));
+
+app.post('/initial-tweet', function(req, res) {
+  const userId = req.body.userId;
+  let newTweet = selectNextTweetCarefully(userId);
+  res.send(newTweet);
 });
 
-app.get('/get-new-tweet', function(req, res) {
-  /**
-   * Here I will call your function that you will write and pass "req" to it and I should get a new tweet
-   * 
-   * maybe like so
-   * 
-   * 
-   * your function is selectNextTweetCarefully
-   */
-
-  let newTweetToShowItToUser = selectNextTweetCarefully(req);
-
+app.post('/save-choice', function(req, res) {
+  const userId = req.body.userId;
+  const tweetId = req.body.tweetId;
+  const choice = req.body.choice; // 1 or 0 or -1
+  
+  let newTweet = {
+    img: 'http://placehold.it/48',
+    name: 'سالم فلطة',
+    username: 'ok_nice@',
+    body: 'إعلان لصابون #دوف يظهر إمرأة سمراء البشرة و ملابس غامقة تتحول إليّ إمرأة بيضاء بعد استعمال منتجاتهم !تعليقكم ؟ كيف ترون الفكرة ؟',
+  };
+  const sampeTweets = fs.readFileSync('sample-tweets.json.txt', 'UTF-8');
+  let arrayOfJsons = sampeTweets.split('\n');
+  console.log(req.body.choice);
+  res.send(JSON.parse(arrayOfJsons[2]));
 });
 
-
-function selectNextTweetCarefully(req) {
-
+function selectNextTweetCarefully(userId) {
+  return {
+    hi: 'hello'
+  };
 }
 
 app.listen(4000);
