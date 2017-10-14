@@ -34,23 +34,39 @@
         التغريدة: <span id="number" class="odometer ltr">1</span>
       </div>
     </header>
-
     <main>
       <h1 class="p-0-20">هل التغريدة التالية تدعم قيادة المرأة</h1>
-      <div id="tweet" class="b-t-1 b-b-1 p-10-20">
-        <div class="d-flex">
-          <img id="avatar" class="f-as-start transition-3 blur-0 will-change-filter" src="http://placehold.it/77" alt="Generic placeholder image">
-          <div class="d-flex f-dir-column m-r-10">
-            <h5 id="username" class="m-0 f-s-16 transition-3 blur-0 will-change-filter">عائض القرني</h5>
-            <h6 id="twitter-handle" class="m-0 m-t-10 o-4 f-s-11 transition-3 blur-0 will-change-filter">dr_alqarnee@</h6>
-          </div>
+      <span class="h-1 w-100vw d-block bg-lightgray"></span>
+      <span id="status-view" class="d-block transition-quarter">
+        <div id="status-wrapper" class="p-10-20">
+            <div class="d-flex">
+              <img id="avatar" class="f-as-start" src="http://placehold.it/77" alt="Generic placeholder image">
+              <div class="d-flex f-dir-column m-r-10">
+                <h5 id="username" class="m-0 f-s-16">عائض القرني</h5>
+                <h6 id="twitter-handle" class="m-0 m-t-10 o-4 f-s-11">dr_alqarnee@</h6>
+              </div>
+            </div>
+            <div id="status-body" class="m-t-10 m-b-0 m-r-87">
+              <p class="m-0">مسيرة في كورنيش العاصمة الإماراتية 🇦🇪أبوظبي بمناسبة تأهل مصر لكأس العالم #مصر_في_روسيا_2018</p>
+            </div>
         </div>
-        <div>
-          <p id="tweet-body" class="m-t-10 m-b-0 transition-3 blur-0 will-change-filter">مسيرة في كورنيش العاصمة الإماراتية 🇦🇪أبوظبي بمناسبة تأهل مصر لكأس العالم #مصر_في_روسيا_2018</p>
-          <!-- <img class="m-t-10 m-b-0" src="http://placehold.it/200" alt=""> -->
-        </div>
-      </div>
 
+        <span class="h-1 w-100vw d-block bg-lightgray"></span>
+        
+        <div id="status-wrapper" class="p-10-20">
+            <div class="d-flex">
+              <img id="avatar" class="f-as-start" src="http://placehold.it/77" alt="Generic placeholder image">
+              <div class="d-flex f-dir-column m-r-10">
+                <h5 id="username" class="m-0 f-s-16">عائض القرني</h5>
+                <h6 id="twitter-handle" class="m-0 m-t-10 o-4 f-s-11">dr_alqarnee@</h6>
+              </div>
+            </div>
+            <div id="status-body" class="m-t-10 m-b-0 m-r-87">
+              <p class="m-0">مسيرة في كورنيش العاصمة الإماراتية 🇦🇪أبوظبي بمناسبة تأهل مصر لكأس العالم #مصر_في_روسيا_2018</p>
+            </div>
+        </div>
+      </span>
+      <span class="h-1 w-100vw d-block bg-lightgray"></span>
       <div class="d-flex f-j-sb p-20">
         <div id="yes" tabindex="0" class="d-flex f-j-center f-a-center border-radius-50per b-none w75 h75 bg-green">
           نعم
@@ -63,7 +79,23 @@
         </div>
       </div>
     </main>
+    <template id="standard-status">
+      <div id="status-wrapper" class="b-t-1 b-b-1 p-10-20">
+        <div class="will-change-filter transition-3 blur-0">
+          <div class="d-flex">
+            <img id="avatar" class="f-as-start" src="http://placehold.it/77" alt="Generic placeholder image">
+            <div class="d-flex f-dir-column m-r-10">
+              <h5 id="username" class="m-0 f-s-16">عائض القرني</h5>
+              <h6 id="twitter-handle" class="m-0 m-t-10 o-4 f-s-11">dr_alqarnee@</h6>
+            </div>
+          </div>
+          <p id="status-body" class="m-t-10 m-b-0 m-r-87">مسيرة في كورنيش العاصمة الإماراتية 🇦🇪أبوظبي بمناسبة تأهل مصر لكأس العالم #مصر_في_روسيا_2018</p>
+        </div>
+      </div>
+    </template>
+
     <script src="/odometer.min.js"></script>
-    <script src="/javascript.js"></script>
+    <script src="/functions.js"></script>
+    <script src="/main.js"></script>
   </body>
 </html>
