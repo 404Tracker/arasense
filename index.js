@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const fs = require('fs');
+
 app.use(bodyParser.json());
 app.use('/', express.static('frontend'));
 
@@ -29,7 +30,7 @@ function selectTweetReplies() {
 app.post('/initial-tweet', (req, res) => {
   const userId = req.body.userId;
   sleep(1000);
-  res.send(selectTweetReplies());
+  res.send(selectTweetQuote());
 });
 
 app.post('/save-choice', (req, res) => {
@@ -37,7 +38,13 @@ app.post('/save-choice', (req, res) => {
   const tweetId = req.body.tweetId;
   const choice = req.body.choice; // 1 or 0 or -1
   sleep(1000);
-  res.send(selectTweetReplies());
+  if (choice === 1) {
+    res.send(selectTweet());
+  } else if (choice === 0) {
+    res.send(selectTweetQuote());
+  } else if (choice === -1) {
+    res.send(selectTweetReplies());
+  }
 });
 
 app.listen(4000, _ => console.log('APP IS LISTENING: http://localhost:4000'));

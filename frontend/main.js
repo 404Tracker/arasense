@@ -18,22 +18,11 @@ fetch('/initial-tweet', {
     return response.json();
   })
   .then(function(json) {
-    updateMainStatus(json);
-    addContext(json);
+    updateUI(json);
   })
   .catch(function(err) {
     // TODO:: show sad face with message to refresh or check internet connection
   });
-
-  /**
-   * STYLES FOR BAR
-      position: absolute;
-      width: 4px;
-      height: calc(100% - 77px - 20px + 10px + 10px + 1px);
-      background-color: rgba(34, 32, 250, .2);
-      top: calc(77px + 10px);
-      right: calc((77px / 2) + 20px - 2px);
-   */
 
 /**
  * "YES", "I DON'T KNOW", and "NO" Buttons Handlers. each of the buttons get a new tweet when they are clicked
@@ -45,58 +34,25 @@ document.getElementById('yes').addEventListener('click', function(e) {
       return res.json();
     })
     .then(function(json) {
-      console.log(json);
-
-      // removeContext();
-      updateMainStatus();
-      // addContext();
+      updateUI(json);
     });
     
   });
 document.getElementById('dontKnow').addEventListener('click', function(e) {
-  blurTweet();
-
   saveChoice(localStorage.getItem('userId'), localStorage.getItem('tweetId'), 0)
     .then(function(res) {
       return res.json();
     })
     .then(function(json) {
-      console.log(json);
-      blurDurationFast();
-  
-        // change values
-        updateStatus();
-        // TODO:: updateStatusId();
-  
-        // remove blurryness
-        unBlurTweet();
-  
-        // TODO:: increase number of tweets
-  
-        blurDurationSlow();
+      updateUI(json);
     });
   });
 document.getElementById('no').addEventListener('click', function(e) {
-  blurTweet();
-
   saveChoice(localStorage.getItem('userId'), localStorage.getItem('tweetId'), -1)
     .then(function(res) {
       return res.json();
     })
     .then(function(json) {
-      console.log(json);
-      blurDurationFast();
-  
-        // change values
-        updateStatus();
-        // TODO:: updateStatusId();
-  
-        // remove blurryness
-        unBlurTweet();
-  
-        // TODO:: increase number of tweets
-  
-        blurDurationSlow();
+      updateUI(json);
     });
-    
 });

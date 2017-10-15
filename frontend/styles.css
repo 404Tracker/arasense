@@ -133,12 +133,48 @@ header {
 .m-r-87 {
   margin-right: 87px;
 }
+.m-r-58 {
+  margin-right: calc(48px + 10px);
+}
 .w-100vw {
   width: 100vw;
+}
+.w-100per {
+  width: 100%;
+}
+.w-75per {
+  width: 75%;
+}
+.w-180per {
+  width: 180%;
 }
 .h-1 {
   height: 1px;
 }
 .bg-lightgray {
-  background-color: #cccccc;
+  background-color: #CFCEC3;
+}
+.round {
+  border-radius: 50%;
+}
+.pos-rltv {
+  position: relative;
+}
+.pos-abs {
+  position: absolute;
+}
+.b-radius-4 {
+  border-radius: 4px;
+}
+.h-3 { 
+  height: 3px;
+}
+.h-9 { 
+  height: 9px;
+}
+.w-100 {
+  width: 100px;
+}
+.w-75 {
+  width: 75px;
 }
