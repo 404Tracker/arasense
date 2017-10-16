@@ -52,7 +52,7 @@ app.post('/save-choice', (req, res) => {
   }
 });
 
-if (process.argv[2] === "prod" && process.argv[2] === "production") {
+if (process.argv[2] === "prod" || process.argv[2] === "production") {
   let privateKey = fs.readFileSync('/etc/letsencrypt/live/arasense.net/privkey.pem', 'utf-8');
   let certificate = fs.readFileSync('/etc/letsencrypt/live/arasense.net/fullchain.pem', 'utf-8');
   
