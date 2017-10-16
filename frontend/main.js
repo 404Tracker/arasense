@@ -27,6 +27,12 @@ fetch('/initial-tweet', {
 /**
  * "YES", "I DON'T KNOW", and "NO" Buttons Handlers. each of the buttons get a new tweet when they are clicked
  */
+document.getElementById('yes').addEventListener('touchstart', function(e) {
+  this.style.boxShadow = 'initial';
+});
+document.getElementById('yes').addEventListener('touchend', function(e) {
+  this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
+});
 document.getElementById('yes').addEventListener('click', function(e) {
 
   saveChoice(localStorage.getItem('userId'), localStorage.getItem('tweetId'), 1)
@@ -38,6 +44,12 @@ document.getElementById('yes').addEventListener('click', function(e) {
     });
     
   });
+document.getElementById('dontKnow').addEventListener('touchstart', function(e) {
+  this.style.boxShadow = 'initial';
+});
+document.getElementById('dontKnow').addEventListener('touchend', function(e) {
+  this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
+});
 document.getElementById('dontKnow').addEventListener('click', function(e) {
   saveChoice(localStorage.getItem('userId'), localStorage.getItem('tweetId'), 0)
     .then(function(res) {
@@ -47,6 +59,12 @@ document.getElementById('dontKnow').addEventListener('click', function(e) {
       updateUI(json);
     });
   });
+document.getElementById('no').addEventListener('touchstart', function(e) {
+  this.style.boxShadow = 'initial';
+});
+document.getElementById('no').addEventListener('touchend', function(e) {
+  this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
+});
 document.getElementById('no').addEventListener('click', function(e) {
   saveChoice(localStorage.getItem('userId'), localStorage.getItem('tweetId'), -1)
     .then(function(res) {
