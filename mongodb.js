@@ -27,6 +27,6 @@ module.exports = {
     },
 
     selectTweet: function () {
-        return _tweets.find().sort({ importance: -1 }).limit(1).toArray();
+        return _tweets.find({'votes.2': {$exists: false}}).sort({importance:-1}).limit(1).toArray();
     }
 };
