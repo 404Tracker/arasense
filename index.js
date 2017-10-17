@@ -35,7 +35,7 @@ app.post('/save-choice', (req, res) => {
   // } else if (choice === -1) {
   //   res.send(selectTweet());
   // }
-  res.send(selectTweet('abcdefghijkl1'))
+  res.send(mongodb.selectTweet('abcdefghijkl1'))
 });
 
 if (process.argv[2] === "prod" || process.argv[2] === "production") {
