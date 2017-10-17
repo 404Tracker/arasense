@@ -43,7 +43,7 @@ function randomNumber() {
 function selectTweet() {
     mongodb.getTweets().find().sort({importance:-1}).limit(10).toArray((err, result) => {
       let tweet = result[0];
-        console.log('There are results', tweet.user.name);
+        console.log('There are results', tweet.user.name, tweet.importance);
         return tweet; // tried to do this but this is wrong!! I don't know how to get this f* tweet out to the caller.
       })
   // const sampleTweets = fs.readFileSync('sample-tweets.json.txt', 'UTF-8').toString().split('\n');
