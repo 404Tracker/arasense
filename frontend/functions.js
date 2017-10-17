@@ -59,8 +59,11 @@ function isReplyToStatus(json) {
 
   p.innerText = json.replied_to_status.text;
   topStatus.querySelector('h5').innerHTML = json.replied_to_status.user.name;
+  topStatus.querySelector('h5').classList.remove('f-s-16');
   topStatus.querySelector('h6').innerHTML = `${json.replied_to_status.user.screen_name}@`;
+  topStatus.querySelector('h6').classList.remove('f-s-11');
   topStatus.querySelector('#status-body').innerHTML = p.innerHTML;
+  topStatus.style.fontSize = '12px';
 
   // create a horizontal gray line and add it to separate betweet the old status and the new status
   var separator = document.createElement('span');
@@ -83,7 +86,7 @@ function isReplyToStatus(json) {
   var bottomStatus = document.getElementById('standard-status').content.cloneNode(true),
       repliedTo = document.createElement('span');
   repliedTo.style.color = 'rgba(0, 0, 0, 0.41)';
-  repliedTo.style.marginTop = '-20px';
+  repliedTo.style.marginTop = '-10px';
   repliedTo.style.display = 'block';
   repliedTo.innerText = `ردَّا على ${json.replied_to_status.user.screen_name}@`;
   bottomStatus.querySelector('h5').innerText = json.user.name;
@@ -91,21 +94,22 @@ function isReplyToStatus(json) {
   bottomStatus.querySelector('p').innerText = json.text.replace(`@${json.replied_to_status.user.screen_name}`, '');
   bottomStatus.querySelector('#status-body').insertAdjacentElement('afterbegin', repliedTo);
 
-  addBackgroundColorToIt(bottomStatus.querySelector('#status-wrapper'), 'rgba(255, 255, 0, 0.35)');
   document.querySelector('#status-view').appendChild(bottomStatus);
 }
 function isQuotedStatus(json) {
   // perpare qouted status
   var qoutedStatus = document.getElementById('standard-status').content.cloneNode(true).querySelector('#status-wrapper');
   qoutedStatus.querySelector('#username').innerText = json.quoted_status.user.name;
+  qoutedStatus.querySelector('#username').classList.remove('f-s-16');
   qoutedStatus.querySelector('#twitter-handle').innerText = `${json.quoted_status.user.screen_name}@`;
+  qoutedStatus.querySelector('#twitter-handle').classList.remove('f-s-11');
   qoutedStatus.querySelector('#status-body p').innerText = json.quoted_status.text;
   qoutedStatus.querySelector('img').remove();
   qoutedStatus.querySelector('#status-body').classList.remove('m-t-10', 'm-b-0', 'm-r-58');
   qoutedStatus.querySelector('#username').parentElement.classList.remove('m-r-10');
   qoutedStatus.classList.add('m-t-10');
   qoutedStatus.style.border = '.1px solid rgba(0, 0, 0, 0.2)';
-  addBackgroundColorToIt(qoutedStatus, '#fff');
+  qoutedStatus.style.fontSize = '12px';
 
   // update main status and color it yellow and add the qouted status inside of it
   var mainStatus = document.querySelector('#status-view #status-wrapper'),
@@ -117,7 +121,7 @@ function isQuotedStatus(json) {
   mainStatus.querySelector('#status-body').innerHTML = '';
   mainStatus.querySelector('#status-body').appendChild(p);
   mainStatus.querySelector('#status-body').insertAdjacentElement('beforeend', qoutedStatus);
-  addBackgroundColorToIt(mainStatus, 'rgba(255, 255, 0, 0.35)');
+  mainStatus.style.fontSize = 'initial';
 
 }
 function isStandardStatus(json) {
@@ -128,10 +132,11 @@ function isStandardStatus(json) {
 
   p.innerText = json.text;
   mainStatus.querySelector('#username').innerHTML = json.user.name;
+  mainStatus.querySelector('#username').classList.add('f-s-16');
   mainStatus.querySelector('#twitter-handle').innerHTML = `${json.user.screen_name}@`;
+  mainStatus.querySelector('#twitter-handle').classList.add('f-s-11');
   mainStatus.querySelector('#status-body').innerHTML = p.innerHTML;
-
-  addBackgroundColorToIt(mainStatus, 'rgba(255, 255, 0, 0.35)');
+  mainStatus.style.fontSize = 'initial';
 }
 function updateUI(json) {
   // blurrrr the ui
