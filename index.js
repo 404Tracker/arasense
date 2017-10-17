@@ -14,7 +14,7 @@ app.post('/initial-tweet', async (req, res) => {
   const userId = req.body.userId;
   let tweet;
   try {
-    tweet = await mongodb.selectTweetForUser('abcdefghijkl1');
+    tweet = await mongodb.selectTweet('abcdefghijkl1');
   } catch (hi) {
     console.log(hi);
   }
@@ -26,14 +26,16 @@ app.post('/save-choice', (req, res) => {
   const userId = req.body.userId;
   const tweetId = req.body.tweetId;
   const choice = req.body.choice; // 1 or 0 or -1
-  sleep(1000);
-  if (choice === 1) {
-    res.send(selectTweet());
-  } else if (choice === 0) {
-    res.send(selectTweet());
-  } else if (choice === -1) {
-    res.send(selectTweet());
-  }
+  mongodb.addVote(tweetId,choice,'abcdefghijkl1')
+  // sleep(1000);
+  // if (choice === 1) {
+  //   res.send(selectTweet());
+  // } else if (choice === 0) {
+  //   res.send(selectTweet());
+  // } else if (choice === -1) {
+  //   res.send(selectTweet());
+  // }
+  res.send(selectTweet('abcdefghijkl1'))
 });
 
 if (process.argv[2] === "prod" || process.argv[2] === "production") {
