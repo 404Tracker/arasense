@@ -53,48 +53,32 @@ function removeContextUI() {
   addBackgroundColorToIt(mainStatus, '#fff');
 }
 function isReplyToStatus(json) {
-  // update status
-  var topStatus = document.querySelector('#status-view > #status-wrapper'),
-      p = document.createElement('p');
-
-  p.innerText = json.replied_to_status.text;
-  topStatus.querySelector('h5').innerHTML = json.replied_to_status.user.name;
-  topStatus.querySelector('h5').classList.remove('f-s-16');
-  topStatus.querySelector('h6').innerHTML = `${json.replied_to_status.user.screen_name}@`;
-  topStatus.querySelector('h6').classList.remove('f-s-11');
-  topStatus.querySelector('#status-body').innerHTML = p.innerHTML;
-  topStatus.style.fontSize = '12px';
-
-  // create a horizontal gray line and add it to separate betweet the old status and the new status
-  var separator = document.createElement('span');
-  separator.id = 'the-separator';
-  separator.classList.add('bg-lightgray', 'd-block', 'w-100vw', 'h-1');
-  document.querySelector('#status-view').appendChild(separator);
-
-  // create a thin vertical bar and place it between the two avatars.
-  var bar = document.createElement('div');
-  bar.id = 'bar';
-  bar.style.position = 'absolute';
-  bar.style.width = '2px';
-  bar.style.height = 'calc((((100% - 10px) - 48px) + 10px) + 1px)';
-  bar.style.top = 'calc(10px + 48px)';
-  bar.style.right = 'calc(20px + 22.5px)';
-  bar.classList.add('bg-lightgray');
-  document.querySelector('#status-wrapper').appendChild(bar);
-
-  // create and inject bottom status
-  var bottomStatus = document.getElementById('standard-status').content.cloneNode(true),
-      repliedTo = document.createElement('span');
-  repliedTo.style.color = 'rgba(0, 0, 0, 0.41)';
-  repliedTo.style.marginTop = '-10px';
-  repliedTo.style.display = 'block';
-  repliedTo.innerText = `ردَّا على ${json.replied_to_status.user.screen_name}@`;
-  bottomStatus.querySelector('h5').innerText = json.user.name;
-  bottomStatus.querySelector('h6').innerText = `${json.user.screen_name}@`;
-  bottomStatus.querySelector('p').innerText = json.text.replace(`@${json.replied_to_status.user.screen_name}`, '');
-  bottomStatus.querySelector('#status-body').insertAdjacentElement('afterbegin', repliedTo);
-
-  document.querySelector('#status-view').appendChild(bottomStatus);
+    // perpare qouted status
+    var qoutedStatus = document.getElementById('standard-status').content.cloneNode(true).querySelector('#status-wrapper');
+    qoutedStatus.querySelector('#username').innerText = json.replied_to_status.user.name;
+    qoutedStatus.querySelector('#username').classList.remove('f-s-16');
+    qoutedStatus.querySelector('#twitter-handle').innerText = `${json.replied_to_status.user.screen_name}@`;
+    qoutedStatus.querySelector('#twitter-handle').classList.remove('f-s-11');
+    qoutedStatus.querySelector('#status-body p').innerText = json.replied_to_status.text;
+    qoutedStatus.querySelector('img').remove();
+    qoutedStatus.querySelector('#status-body').classList.remove('m-t-10', 'm-b-0', 'm-r-58');
+    qoutedStatus.querySelector('#username').parentElement.classList.remove('m-r-10');
+    qoutedStatus.classList.add('m-t-10');
+    qoutedStatus.style.border = '.1px solid rgba(0, 0, 0, 0.2)';
+    qoutedStatus.style.fontSize = '12px';
+  
+    // update main status and add the qouted status inside of it
+    var mainStatus = document.querySelector('#status-view #status-wrapper'),
+        p = document.createElement('p');
+  
+    p.innerText = json.text;
+    mainStatus.querySelector('#username').innerHTML = json.user.name;
+    mainStatus.querySelector('#twitter-handle').innerHTML = `${json.user.screen_name}@`;
+    mainStatus.querySelector('#status-body').innerHTML = '';
+    mainStatus.querySelector('#status-body').appendChild(p);
+    mainStatus.querySelector('#status-body').insertAdjacentElement('beforeend', qoutedStatus);
+    mainStatus.style.fontSize = 'initial';
+  
 }
 function isQuotedStatus(json) {
   // perpare qouted status
@@ -111,7 +95,7 @@ function isQuotedStatus(json) {
   qoutedStatus.style.border = '.1px solid rgba(0, 0, 0, 0.2)';
   qoutedStatus.style.fontSize = '12px';
 
-  // update main status and color it yellow and add the qouted status inside of it
+  // update main status and add the qouted status inside of it
   var mainStatus = document.querySelector('#status-view #status-wrapper'),
       p = document.createElement('p');
 
