@@ -14,7 +14,7 @@ app.post('/initial-tweet', async (req, res) => {
   const userId = req.body.userId;
   let tweet;
   try {
-    tweet = await mongodb.selectTweet();
+    tweet = await mongodb.selectTweetForUser('abcdefghijkl1');
   } catch (hi) {
     console.log(hi);
   }

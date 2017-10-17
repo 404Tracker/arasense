@@ -28,5 +28,9 @@ module.exports = {
 
     selectTweet: function () {
         return _tweets.find({'votes.2': {$exists: false}}).sort({importance:-1}).limit(1).toArray();
+    },
+
+    selectTweetForUser: function (user_id) {
+        return _tweets.find({'votes.2': {$exists: false},'votes.source': { $ne: user_id }}).sort({importance:-1}).limit(1).toArray();
     }
 };
