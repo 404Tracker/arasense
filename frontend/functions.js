@@ -122,20 +122,68 @@ function isStandardStatus(json) {
   mainStatus.querySelector('#status-body').innerHTML = p.innerHTML;
   mainStatus.style.fontSize = 'initial';
 }
-function updateUI(json) {
-  // blurrrr the ui
-  document.getElementById('status-view').classList.add('blur-4');
-  
-  removeContextUI();
+function updateView(json) {
+  window.removeContextUI();
   // swap old ui with new ui
   if (json.replied_to_status) {
-    isReplyToStatus(json);
+    window.isReplyToStatus(json);
   } else if (json.is_quote_status) {
-    isQuotedStatus(json);
+    window.isQuotedStatus(json);
   } else {
-    isStandardStatus(json);
+    window.isStandardStatus(json);
   }
+}
+function updateUI(json) {
+  // blurrrr the ui
+  var view = document.getElementById('status-view');
+  var handler = function(evt) {
+    updateView(json);
+    // UNblurrrr the ui
+    document.getElementById('status-view').classList.remove('blur-4');
+    setTimeout(enableChoices, 100);
+    evt.target.removeEventListener('transitionend', handler);
+  };
+  
+  view.addEventListener('transitionend', handler);
+  view.classList.add('blur-4');
+}
+function shadowHandlers() {
+  document.getElementById('yes').addEventListener('touchstart', function(e) {
+    this.style.boxShadow = 'initial';
+  });
+  document.getElementById('yes').addEventListener('touchend', function(e) {
+    this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
+  });
 
-  // UNblurrrr the ui
-  document.getElementById('status-view').classList.remove('blur-4');
+  document.getElementById('dontKnow').addEventListener('touchstart', function(e) {
+    this.style.boxShadow = 'initial';
+  });
+  document.getElementById('dontKnow').addEventListener('touchend', function(e) {
+    this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
+  });
+
+  document.getElementById('no').addEventListener('touchstart', function(e) {
+    this.style.boxShadow = 'initial';
+  });
+  document.getElementById('no').addEventListener('touchend', function(e) {
+    this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
+  });
+}
+function disableChoices() {
+  document.getElementById('yes').classList.remove('choice-shadow');
+  document.getElementById('dontKnow').classList.remove('choice-shadow');
+  document.getElementById('no').classList.remove('choice-shadow');
+
+  document.getElementById('yes').setAttribute('aria-disabled', 'true');
+  document.getElementById('dontKnow').setAttribute('aria-disabled', 'true');
+  document.getElementById('no').setAttribute('aria-disabled', 'true');
+}
+function enableChoices() {
+  document.getElementById('yes').classList.add('choice-shadow');
+  document.getElementById('dontKnow').classList.add('choice-shadow');
+  document.getElementById('no').classList.add('choice-shadow');
+  
+  document.getElementById('yes').setAttribute('aria-disabled', 'false');
+  document.getElementById('dontKnow').setAttribute('aria-disabled', 'false');
+  document.getElementById('no').setAttribute('aria-disabled', 'false');
 }

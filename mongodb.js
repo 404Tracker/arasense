@@ -34,11 +34,28 @@ module.exports = {
         return _tweets.find({'votes.2': {$exists: false},'votes.source': { $ne: user_id }}).sort({importance:-1}).limit(1).toArray();
     },
 
+    selectTwoTweets: function (user_id) {
+        return _tweets.find({'votes.2': {$exists: false},'votes.source': { $ne: user_id }}).sort({importance:-1}).limit(2).toArray();
+    },
+
     addVote: function (tweetId, vote, source) {
-        _tweets.update({"id":tweetId},
+        _tweets.update(
+            {"id":tweetId},
             {$addToSet : {"votes" : {"vote" : vote, 'source' : source, 'date' : new Date() } } },
             false,
-            true)
+            true
+        );
 
+    },
+
+    hardCodedAddVote: function () {
+        console.log('yeah hitting the function');
+        _tweets.update(
+            
+            {id: 914160356343386112},
+            {$addToSet : {"votes" : {"vote" : 1, 'source' : 'areallylongstring', 'date' : '12 september' } } },
+                        false,
+                        true
+            )
     }
 };

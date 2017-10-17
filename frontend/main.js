@@ -4,7 +4,7 @@
 // Initialize userId ONLY if it was not initialized yet
 localStorage.getItem('userId') || localStorage.setItem('userId', makeId());
 
-// fetch first tweet to show
+// fetch first two tweet
 fetch('/initial-tweet', {
   method: 'POST',
   body: JSON.stringify({
@@ -15,62 +15,116 @@ fetch('/initial-tweet', {
   })
 })
   .then(function(response) {
-    return response.json();
+    if (response.ok) {
+      return response.json();
+    }
+
+    throw new Error('response is weird');
   })
-  .then(function(json) {
-    updateUI(json);
+  .then(function(tweets) {
+    window.tweets = tweets;
+    console.log('got initial two tweets, length now is', window.tweets.length);
+
+    window.currentTweet = window.tweets.pop();
+    updateView(window.currentTweet);
+    enableChoices();
   })
   .catch(function(err) {
+    console.log(err);
     // TODO:: show sad face with message to refresh or check internet connection
   });
 
 /**
  * "YES", "I DON'T KNOW", and "NO" Buttons Handlers. each of the buttons get a new tweet when they are clicked
  */
-document.getElementById('yes').addEventListener('touchstart', function(e) {
-  this.style.boxShadow = 'initial';
-});
-document.getElementById('yes').addEventListener('touchend', function(e) {
-  this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
-});
 document.getElementById('yes').addEventListener('click', function(e) {
-
-  saveChoice(localStorage.getItem('userId'), localStorage.getItem('tweetId'), 1)
-    .then(function(res) {
+  debugger;
+  if (this.getAttribute('aria-disabled') == 'true') {
+    return;
+  }
+  
+  saveChoice(localStorage.getItem('userId'), window.currentTweet.id, 1)
+  .then(function(res) {
+    if (res.ok) {
       return res.json();
-    })
-    .then(function(json) {
-      updateUI(json);
-    });
+    }
     
+    throw new Error('response is weird');
+  })
+  .then(function(tweets) {
+    tweets.map(function(tweet) {
+      window.tweets.push(tweet);
+    });
+    console.log('got another two tweets, length now is', window.tweets.length);
+  })
+  .catch(function(error) {
+    console.log(error);
+    // TODO:: show sad face with message to refresh or check internet connection
   });
-document.getElementById('dontKnow').addEventListener('touchstart', function(e) {
-  this.style.boxShadow = 'initial';
+  
+  disableChoices();
+  window.currentTweet = window.tweets.pop();
+  updateUI(window.currentTweet);
+
 });
-document.getElementById('dontKnow').addEventListener('touchend', function(e) {
-  this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
-});
+
 document.getElementById('dontKnow').addEventListener('click', function(e) {
-  saveChoice(localStorage.getItem('userId'), localStorage.getItem('tweetId'), 0)
-    .then(function(res) {
+  if (this.getAttribute('aria-disabled') == 'true') {
+    return;
+  }
+  
+  saveChoice(localStorage.getItem('userId'), window.currentTweet.id, 0)
+  .then(function(res) {
+    if (res.ok) {
       return res.json();
+    }
+    
+    throw new Error('response is weird');
+  })
+  .then(function(tweets) {
+    tweets.map(function(tweet) {
+      window.tweets.push(tweet);
     })
-    .then(function(json) {
-      updateUI(json);
-    });
+    console.log('got another two tweets, length now is', window.tweets.length);
+  })
+  .catch(function(error) {
+    console.log(error);
+    // TODO:: show sad face with message to refresh or check internet connection
   });
-document.getElementById('no').addEventListener('touchstart', function(e) {
-  this.style.boxShadow = 'initial';
+  
+  disableChoices();
+  window.currentTweet = window.tweets.pop();
+  updateUI(window.currentTweet);
+
 });
-document.getElementById('no').addEventListener('touchend', function(e) {
-  this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
-});
+
 document.getElementById('no').addEventListener('click', function(e) {
-  saveChoice(localStorage.getItem('userId'), localStorage.getItem('tweetId'), -1)
-    .then(function(res) {
+  if (this.getAttribute('aria-disabled') == 'true') {
+    return;
+  }
+
+  
+  saveChoice(localStorage.getItem('userId'), window.currentTweet.id, -1)
+  .then(function(res) {
+    if (res.ok) {
       return res.json();
-    })
-    .then(function(json) {
-      updateUI(json);
+    }
+    
+    throw new Error('response is weird');
+  })
+  .then(function(tweets) {
+    tweets.map(function(tweet) {
+      window.tweets.push(tweet);
     });
+    console.log('got another two tweets, length now is', window.tweets.length);
+  })
+  .catch(function(error) {
+    console.log(error);
+    // TODO:: show sad face with message to refresh or check internet connection
+  });
+  
+  disableChoices();
+  window.currentTweet = window.tweets.pop();
+  updateUI(window.currentTweet);
+
 });

@@ -232,3 +232,15 @@ header {
 .f-s-1n2em {
   font-size: 1.2em;
 }
+.m-t-65 {
+  margin-top: 65px;
+}
+#yes[aria-disabled=true] {
+  background: #CFCEC3;
+}
+#dontKnow[aria-disabled=true] {
+  background: #CFCEC3;
+}
+#no[aria-disabled=true] {
+  background: #CFCEC3;
+}

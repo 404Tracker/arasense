@@ -5,37 +5,40 @@ const https = require('https');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
-const mongodb = require('./mongodb')
+const mongodb = require('./mongodb');
 
 app.use(bodyParser.json());
 app.use('/', express.static('frontend'));
 
 app.post('/initial-tweet', async (req, res) => {
-  const userId = req.body.userId;
-  let tweet;
+  let tweets;
   try {
-    tweet = await mongodb.selectTweet('abcdefghijkl1');
-  } catch (hi) {
-    console.log(hi);
+    tweets = await mongodb.selectTwoTweets(req.body.userId);
+  } catch (error) {
+    res.writeHead(500, { 'Message': 'couldn\'t get two tweets for some reason!' });
+    res.end();
+    return;
   }
-  console.log(...tweet);
-  res.send(...tweet);
+  
+  res.send(tweets);
 });
 
-app.post('/save-choice', (req, res) => {
-  const userId = req.body.userId;
-  const tweetId = req.body.tweetId;
-  const choice = req.body.choice; // 1 or 0 or -1
-  mongodb.addVote(tweetId,choice,'abcdefghijkl1')
-  // sleep(1000);
-  // if (choice === 1) {
-  //   res.send(selectTweet());
-  // } else if (choice === 0) {
-  //   res.send(selectTweet());
-  // } else if (choice === -1) {
-  //   res.send(selectTweet());
-  // }
-  res.send(mongodb.selectTweet('abcdefghijkl1'))
+app.post('/save-choice', async (req, res) => {
+  mongodb.addVote(
+    req.body.tweetId, 
+    req.body.choice, 
+    req.body.userId
+  );
+
+  let tweets;
+  try {
+    tweets = await mongodb.selectTwoTweets(req.body.userId);
+  } catch (error) {
+    res.writeHead(500, { 'Message': 'couldn\'t get two tweets for some reason!' });
+    res.end();
+    return;
+  }
+  res.send(tweets);
 });
 
 if (process.argv[2] === "prod" || process.argv[2] === "production") {
