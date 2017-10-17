@@ -23,6 +23,10 @@ module.exports = {
     },
 
     getNextTweet: function () {
-        _tweets.findOne();
+        return _tweets.findOne();
+    },
+
+    selectTweet: function () {
+        return _tweets.find().sort({ importance: -1 }).limit(1).toArray();
     }
 };
