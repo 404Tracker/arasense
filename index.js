@@ -4,7 +4,31 @@ const http = require('http');
 const https = require('https');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const mongodb = require('mongodb');
 
+const MongoClient = mongodb.MongoClient;
+
+MongoClient.connect('mongodb://arasense.net:27017/arasense_db', (err, db) => {
+  if (err) {
+    console.log('Unable to connect for some reason', err);
+  } else {
+    console.log('Connected');
+    let tweets = db.collection('tweets');
+    tweets.find({ id: 201636221573791744 }).toArray((err, result) => {
+      if (err) {
+        console.log('Unable to retrieve tweets for some reason', err);
+      } else if (result.length) {
+        let tweet = result[0];
+        console.log('There are results', tweet.user.name);
+      } else {
+        console.log('Nothing found');
+      }
+      db.close();
+    });
+  }
+});
+
+return;
 app.use(bodyParser.json());
 app.use('/', express.static('frontend'));
 
