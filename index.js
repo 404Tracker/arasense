@@ -41,13 +41,14 @@ function randomNumber() {
   return Math.floor(Math.random() * (4 - 0) + 0);
 }
 function selectTweet() {
-    mongodb.getTweets().findOne().then( function(result) {
-    console.log(result); // this gets one tweet from db
-    return result; // tried to do this but this is wrong!! I don't know how to get this f* tweet out to the caller.
-  })
-  const sampleTweets = fs.readFileSync('sample-tweets.json.txt', 'UTF-8').toString().split('\n');
-  let randomStatus = sampleTweets[randomNumber()];
-  return JSON.parse(randomStatus);
+    mongodb.getTweets().find().sort({importance:-1}).limit(10).toArray((err, result) => {
+      let tweet = result[0];
+        console.log('There are results', tweet.user.name);
+        return tweet; // tried to do this but this is wrong!! I don't know how to get this f* tweet out to the caller.
+      })
+  // const sampleTweets = fs.readFileSync('sample-tweets.json.txt', 'UTF-8').toString().split('\n');
+  // let randomStatus = sampleTweets[randomNumber()];
+  // return JSON.parse(randomStatus);
 }
 function selectTweetQuote() {
   const sampleTweets = fs.readFileSync('./sample-tweets-quotes.json.txt', 'UTF-8').toString().split('\n');
