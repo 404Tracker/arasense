@@ -4,31 +4,31 @@ const http = require('http');
 const https = require('https');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const mongodb = require('mongodb');
 
-const MongoClient = mongodb.MongoClient;
+const mongodb = require('./mongodb')
 
-MongoClient.connect('mongodb://arasense.net:27017/arasense_db', (err, db) => {
-  if (err) {
-    console.log('Unable to connect for some reason', err);
-  } else {
-    console.log('Connected');
-    let tweets = db.collection('tweets');
-    tweets.find({ id: 201636221573791744 }).toArray((err, result) => {
-      if (err) {
-        console.log('Unable to retrieve tweets for some reason', err);
-      } else if (result.length) {
-        let tweet = result[0];
-        console.log('There are results', tweet.user.name);
-      } else {
-        console.log('Nothing found');
-      }
-      db.close();
-    });
-  }
-});
-
-return;
+//
+// MongoClient.connect('mongodb://arasense.net:27017/arasense_db', (err, db) => {
+//   if (err) {
+//     console.log('Unable to connect for some reason', err);
+//   } else {
+//     console.log('Connected');
+//     let tweets = db.collection('tweets');
+//     tweets.find({ id: 201636221573791744 }).toArray((err, result) => {
+//       if (err) {
+//         console.log('Unable to retrieve tweets for some reason', err);
+//       } else if (result.length) {
+//         let tweet = result[0];
+//         console.log('There are results', tweet.user.name);
+//       } else {
+//         console.log('Nothing found');
+//       }
+//       db.close();
+//     });
+//   }
+// });
+//
+// return;
 app.use(bodyParser.json());
 app.use('/', express.static('frontend'));
 
@@ -41,6 +41,10 @@ function randomNumber() {
   return Math.floor(Math.random() * (4 - 0) + 0);
 }
 function selectTweet() {
+    mongodb.getTweets().findOne().then( function(result) {
+    console.log(result); // this gets one tweet from db
+    return result; // tried to do this but this is wrong!! I don't know how to get this f* tweet out to the caller.
+  })
   const sampleTweets = fs.readFileSync('sample-tweets.json.txt', 'UTF-8').toString().split('\n');
   let randomStatus = sampleTweets[randomNumber()];
   return JSON.parse(randomStatus);
@@ -93,5 +97,7 @@ if (process.argv[2] === "prod" || process.argv[2] === "production") {
     return res.end();
   }).listen(80);
 } else {
-  app.listen(4000, _ => console.log('APP IS LISTENING: http://localhost:4000'));
+    mongodb.connectToServer( function( err ) {
+        app.listen(4000, _ => console.log('APP IS LISTENING: http://localhost:4000'));
+    } );
 }
