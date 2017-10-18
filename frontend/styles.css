@@ -247,3 +247,22 @@ header {
 #no[aria-disabled=true] {
   background: #CFCEC3;
 }
+.w-max-600 {
+  max-width: 600px;
+}
+.m-rl-auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+.r-50per {
+  right: 50%;
+}
+.translateX-50per {
+  transform: translateX(50%);
+}
+
+@media (min-width: 663px) {
+  .x-f-s-2em {
+    font-size: 2em;
+  }
+}

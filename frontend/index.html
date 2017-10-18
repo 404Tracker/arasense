@@ -35,13 +35,13 @@
           التغريدة: <span id="number" class="odometer ltr">1</span>
         </div>
       </header>
-      <main class="m-t-65">
-        <h1 class="p-0-20 f-s-1n2em">هل المغرد التالي <span class="color-orangered">يعارض</span> أم <span class="color-green">يوافق</span> قيادة المرأة للسيارة</h1>
-        <span class="h-1 w-100vw d-block bg-lightgray"></span>
+      <main class="m-t-65 m-rl-auto w-max-600">
+        <h1 class="p-0-20 f-s-1n2em x-f-s-2em">هل المغرد التالي <span class="color-orangered">يعارض</span> أم <span class="color-green">يوافق</span> قيادة المرأة للسيارة</h1>
+        <span class="h-1 w-100per d-block bg-lightgray"></span>
         <span id="status-view" class="d-block transition-quarter">
           <div id="status-wrapper" class="p-10-20 pos-rltv">
               <div class="d-flex f-a-center">
-                <img id="avatar" class="f-as-start round" width="48" height="48" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABPSURBVHgB7c9BDcAgAAAxNv+u+IMkkHEhaR3022ue8bB/PE6gJlATqAnUBGoCNYGaQE2gJlATqAnUBGoCNYGaQE2gJlATqAnUBGoCNYHaBenQA78mpvDRAAAAAElFTkSuQmCC" alt="Generic placeholder">
+                <img id="avatar" class="f-as-start round" width="48" height="48" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABPSURBVHgB7c9BDcAgAAAxNv+u+IMkkHEhaR3022ue8bB/PE6gJlATqAnUBGoCNYGaQE2gJlATqAnUBGoCNYGaQE2gJlATqAnUBGoCNYHaBenQA78mpvDRAAAAAElFTkSuQmCC" alt="">
                 <div class="d-flex f-dir-column m-r-10">
                   <h5 id="username" class="m-0 f-s-16">
                     <span class="w-100 b-radius-4 h-9 d-block bg-lightgray"></span>
@@ -58,26 +58,28 @@
               </div>
           </div>
         </span>
-        <span class="h-1 w-100vw d-block bg-lightgray"></span>
+        <span class="h-1 w-100per d-block bg-lightgray"></span>
         <div class="w-100vw h-84"></div>
       </main>
     </div>
-    <div class="d-flex f-j-sb p-20 pos-fixed w-100vw b-t-1 bg-choices-gradient bottom-0 h-85">
-      <div id="no" tabindex="0" class="d-flex f-j-center f-a-center b-none w75 h-45 bg-orangered choice-border remove-focus-hightlight outline-none" aria-disabled="true">
-        يعارض
-      </div>
-      <div id="yes" tabindex="0" class="d-flex f-j-center f-a-center b-none w75 h-45 bg-green choice-border remove-focus-hightlight outline-none" aria-disabled="true">
-        يوافق
-      </div>
-      <div id="dontKnow" tabindex="0" class="d-flex f-j-center f-a-center b-none w75 h-45 bg-grayblue choice-border remove-focus-hightlight outline-none" aria-disabled="true">
-        لا أعرف
+    <div class="pos-fixed b-t-1 bg-choices-gradient bottom-0 h-85 w-100vw">
+      <div class="d-flex f-j-sb p-20 pos-rltv w-max-600 w-100per r-50per translateX-50per">
+        <div id="no" tabindex="0" class="d-flex f-j-center f-a-center b-none w75 h-45 bg-orangered choice-border remove-focus-hightlight outline-none" aria-disabled="true">
+          يعارض
+        </div>
+        <div id="yes" tabindex="0" class="d-flex f-j-center f-a-center b-none w75 h-45 bg-green choice-border remove-focus-hightlight outline-none" aria-disabled="true">
+          يوافق
+        </div>
+        <div id="dontKnow" tabindex="0" class="d-flex f-j-center f-a-center b-none w75 h-45 bg-grayblue choice-border remove-focus-hightlight outline-none" aria-disabled="true">
+          لا أعرف
+        </div>
       </div>
     </div>
     <template id="standard-status">
       <div id="status-wrapper" class="p-10-20 bottomStatus">
         <div class="">
           <div class="d-flex f-a-center">
-            <img id="avatar" class="f-as-start round" width="48" height="48" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABPSURBVHgB7c9BDcAgAAAxNv+u+IMkkHEhaR3022ue8bB/PE6gJlATqAnUBGoCNYGaQE2gJlATqAnUBGoCNYGaQE2gJlATqAnUBGoCNYHaBenQA78mpvDRAAAAAElFTkSuQmCC" alt="Generic placeholder">
+            <img id="avatar" class="f-as-start round" width="48" height="48" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABPSURBVHgB7c9BDcAgAAAxNv+u+IMkkHEhaR3022ue8bB/PE6gJlATqAnUBGoCNYGaQE2gJlATqAnUBGoCNYGaQE2gJlATqAnUBGoCNYHaBenQA78mpvDRAAAAAElFTkSuQmCC" alt="">
             <div class="d-flex f-dir-column m-r-10">
               <h5 id="username" class="m-0">عائض القرني</h5>
               <h6 id="twitter-handle" class="m-0 m-t-10 o-4">dr_alqarnee@</h6>
