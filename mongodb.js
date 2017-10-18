@@ -26,22 +26,24 @@ module.exports = {
         return _tweets.findOne();
     },
 
-    // selectTweet: function () {
-    //     return _tweets.find({'votes.2': {$exists: false}}).sort({importance:-1}).limit(1).toArray();
-    // },
-
+    /**
+     * I use this for susequent requests
+     */
     selectTweet: function (user_id) {
         return _tweets.find({'votes.2': {$exists: false},'votes.source': { $ne: user_id }}).sort({importance:-1}).limit(1).toArray();
     },
-
-    selectTwoTweets: function (user_id) {
-        return _tweets.find({'votes.2': {$exists: false},'votes.source': { $ne: user_id }}).sort({importance:-1}).limit(2).toArray();
+    
+    /**
+     * I use this function ONLY for the initial rendering of the app.
+     */
+    selectFourTweets: function (user_id) {
+        return _tweets.find({'votes.2': {$exists: false},'votes.source': { $ne: user_id }}).sort({importance:-1}).limit(4).toArray();
     },
 
     addVote: function (tweetId, vote, source) {
-        _tweets.update(
-            {"id":tweetId},
-            {$addToSet : {"votes" : {"vote" : vote, 'source' : source, 'date' : new Date() } } },
+        return _tweets.update(
+            {"id":parseInt(tweetId)},
+            {$addToSet : {"votes" : {"vote" : parseInt(vote), 'source' : source, 'date' : new Date() } } },
             false,
             true
         );

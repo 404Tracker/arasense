@@ -6,6 +6,11 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 
 const mongodb = require('./mongodb');
+function sleep(ms) {
+  var start = new Date().getTime(), expire = start + ms;
+  while (new Date().getTime() < expire) { }
+  return;
+}
 
 app.use(bodyParser.json());
 app.use('/', express.static('frontend'));
@@ -13,18 +18,19 @@ app.use('/', express.static('frontend'));
 app.post('/initial-tweet', async (req, res) => {
   let tweets;
   try {
-    tweets = await mongodb.selectTwoTweets(req.body.userId);
+    tweets = await mongodb.selectFourTweets(req.body.userId);
   } catch (error) {
     res.writeHead(500, { 'Message': 'couldn\'t get two tweets for some reason!' });
     res.end();
     return;
   }
-  
+
+  sleep(1000);
   res.send(tweets);
 });
 
 app.post('/save-choice', async (req, res) => {
-  mongodb.addVote(
+  await mongodb.addVote(
     req.body.tweetId, 
     req.body.choice, 
     req.body.userId
@@ -32,12 +38,14 @@ app.post('/save-choice', async (req, res) => {
 
   let tweets;
   try {
-    tweets = await mongodb.selectTwoTweets(req.body.userId);
+    tweets = await mongodb.selectTweet(req.body.userId);
   } catch (error) {
     res.writeHead(500, { 'Message': 'couldn\'t get two tweets for some reason!' });
     res.end();
     return;
   }
+  
+  sleep(1000);
   res.send(tweets);
 });
 

@@ -23,7 +23,6 @@ fetch('/initial-tweet', {
   })
   .then(function(tweets) {
     window.tweets = tweets;
-    console.log('got initial two tweets, length now is', window.tweets.length);
 
     window.currentTweet = window.tweets.pop();
     updateView(window.currentTweet);
@@ -38,7 +37,6 @@ fetch('/initial-tweet', {
  * "YES", "I DON'T KNOW", and "NO" Buttons Handlers. each of the buttons get a new tweet when they are clicked
  */
 document.getElementById('yes').addEventListener('click', function(e) {
-  debugger;
   if (this.getAttribute('aria-disabled') == 'true') {
     return;
   }
@@ -72,7 +70,7 @@ document.getElementById('dontKnow').addEventListener('click', function(e) {
   if (this.getAttribute('aria-disabled') == 'true') {
     return;
   }
-  
+
   saveChoice(localStorage.getItem('userId'), window.currentTweet.id, 0)
   .then(function(res) {
     if (res.ok) {
@@ -85,7 +83,6 @@ document.getElementById('dontKnow').addEventListener('click', function(e) {
     tweets.map(function(tweet) {
       window.tweets.push(tweet);
     })
-    console.log('got another two tweets, length now is', window.tweets.length);
   })
   .catch(function(error) {
     console.log(error);
@@ -116,7 +113,6 @@ document.getElementById('no').addEventListener('click', function(e) {
     tweets.map(function(tweet) {
       window.tweets.push(tweet);
     });
-    console.log('got another two tweets, length now is', window.tweets.length);
   })
   .catch(function(error) {
     console.log(error);
