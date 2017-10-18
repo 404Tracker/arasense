@@ -41,7 +41,7 @@ document.getElementById('yes').addEventListener('click', function(e) {
     return;
   }
   
-  saveChoice(localStorage.getItem('userId'), window.currentTweet.id, 1)
+  saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, 1)
   .then(function(res) {
     if (res.ok) {
       return res.json();
@@ -71,7 +71,7 @@ document.getElementById('dontKnow').addEventListener('click', function(e) {
     return;
   }
 
-  saveChoice(localStorage.getItem('userId'), window.currentTweet.id, 0)
+  saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, 0)
   .then(function(res) {
     if (res.ok) {
       return res.json();
@@ -101,7 +101,7 @@ document.getElementById('no').addEventListener('click', function(e) {
   }
 
   
-  saveChoice(localStorage.getItem('userId'), window.currentTweet.id, -1)
+  saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, -1)
   .then(function(res) {
     if (res.ok) {
       return res.json();
