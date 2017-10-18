@@ -1,5 +1,5 @@
 var MongoClient = require( 'mongodb' ).MongoClient;
-
+var Long = require('mongodb').Long;
 var _db;
 
 var _tweets;
@@ -42,7 +42,7 @@ module.exports = {
 
     addVote: function (tweetId, vote, source) {
         _tweets.updateOne(
-            {tweetid: parseInt(tweetId)},
+            {tweetid: Long.fromString(tweetId)},
             {$addToSet : {"votes" : {"vote" : parseInt(vote), 'source' : source, 'date' : new Date() } } }, function(err, res) {
                 if (err) throw err;
                 console.log(res.result.nModified + " document(s) updated \n\ttweetId: ",tweetId,"\n\tvote: ",vote,"\n\t source: ",source);
