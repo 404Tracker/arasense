@@ -4,7 +4,7 @@
 // Initialize userId ONLY if it was not initialized yet
 localStorage.getItem('userId') || localStorage.setItem('userId', makeId());
 
-// fetch first two tweet
+// fetch first tweet
 fetch('/initial-tweet', {
   method: 'POST',
   body: JSON.stringify({
@@ -21,10 +21,8 @@ fetch('/initial-tweet', {
 
     throw new Error('response is weird');
   })
-  .then(function(tweets) {
-    window.tweets = tweets;
-
-    window.currentTweet = window.tweets.pop();
+  .then(function(tweet) {
+    window.currentTweet = tweet[0];
     updateView(window.currentTweet);
     enableChoices();
   })
@@ -40,6 +38,10 @@ document.getElementById('yes').addEventListener('click', function(e) {
   if (this.getAttribute('aria-disabled') == 'true') {
     return;
   }
+
+  // blurrr the ui & disable buttons
+  document.getElementById('status-view').classList.add('blur-4');
+  disableChoices();
   
   saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, 1)
   .then(function(res) {
@@ -49,20 +51,16 @@ document.getElementById('yes').addEventListener('click', function(e) {
     
     throw new Error('response is weird');
   })
-  .then(function(tweets) {
-    tweets.map(function(tweet) {
-      window.tweets.push(tweet);
-    });
-    console.log('got another two tweets, length now is', window.tweets.length);
+  .then(function(tweet) {
+    window.currentTweet = tweet[0];
+    updateView(window.currentTweet);
+    document.getElementById('status-view').classList.remove('blur-4');
+    enableChoices();
   })
   .catch(function(error) {
     console.log(error);
     // TODO:: show sad face with message to refresh or check internet connection
   });
-  
-  disableChoices();
-  window.currentTweet = window.tweets.pop();
-  updateUI(window.currentTweet);
 
 });
 
@@ -70,6 +68,10 @@ document.getElementById('dontKnow').addEventListener('click', function(e) {
   if (this.getAttribute('aria-disabled') == 'true') {
     return;
   }
+
+  // blurrr the ui & disable buttons
+  document.getElementById('status-view').classList.add('blur-4');
+  disableChoices();
 
   saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, 0)
   .then(function(res) {
@@ -79,20 +81,17 @@ document.getElementById('dontKnow').addEventListener('click', function(e) {
     
     throw new Error('response is weird');
   })
-  .then(function(tweets) {
-    tweets.map(function(tweet) {
-      window.tweets.push(tweet);
-    })
+  .then(function(tweet) {
+    window.currentTweet = tweet[0];
+    updateView(window.currentTweet);
+    document.getElementById('status-view').classList.remove('blur-4');
+    enableChoices();
   })
   .catch(function(error) {
     console.log(error);
     // TODO:: show sad face with message to refresh or check internet connection
   });
   
-  disableChoices();
-  window.currentTweet = window.tweets.pop();
-  updateUI(window.currentTweet);
-
 });
 
 document.getElementById('no').addEventListener('click', function(e) {
@@ -100,6 +99,9 @@ document.getElementById('no').addEventListener('click', function(e) {
     return;
   }
 
+  // blurrr the ui & disable buttons
+  document.getElementById('status-view').classList.add('blur-4');
+  disableChoices();
   
   saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, -1)
   .then(function(res) {
@@ -109,18 +111,15 @@ document.getElementById('no').addEventListener('click', function(e) {
     
     throw new Error('response is weird');
   })
-  .then(function(tweets) {
-    tweets.map(function(tweet) {
-      window.tweets.push(tweet);
-    });
+  .then(function(tweet) {
+    window.currentTweet = tweet[0];
+    updateView(window.currentTweet);
+    document.getElementById('status-view').classList.remove('blur-4');
+    enableChoices();
   })
   .catch(function(error) {
     console.log(error);
     // TODO:: show sad face with message to refresh or check internet connection
   });
-  
-  disableChoices();
-  window.currentTweet = window.tweets.pop();
-  updateUI(window.currentTweet);
 
 });

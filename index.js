@@ -6,27 +6,21 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 
 const mongodb = require('./mongodb');
-function sleep(ms) {
-  var start = new Date().getTime(), expire = start + ms;
-  while (new Date().getTime() < expire) { }
-  return;
-}
 
 app.use(bodyParser.json());
 app.use('/', express.static('frontend'));
 
 app.post('/initial-tweet', async (req, res) => {
-  let tweets;
+  let tweet;
   try {
-    tweets = await mongodb.selectFourTweets(req.body.userId);
+    tweet = await mongodb.selectTweet(req.body.userId);
   } catch (error) {
-    res.writeHead(500, { 'Message': 'couldn\'t get two tweets for some reason!' });
+    res.writeHead(500, { 'Message': 'couldn\'t get tweet for some reason!' });
     res.end();
     return;
   }
-
-  sleep(1000);
-  res.send(tweets);
+  
+  res.send(tweet);
 });
 
 app.post('/save-choice', async (req, res) => {
@@ -36,27 +30,28 @@ app.post('/save-choice', async (req, res) => {
     req.body.userId
   );
 
-  let tweets;
+  let tweet;
   try {
-    tweets = await mongodb.selectTweet(req.body.userId);
+    tweet = await mongodb.selectTweet(req.body.userId);
   } catch (error) {
-    res.writeHead(500, { 'Message': 'couldn\'t get two tweets for some reason!' });
+    res.writeHead(500, { 'Message': 'couldn\'t get tweet for some reason!' });
     res.end();
     return;
   }
   
-  sleep(1000);
-  res.send(tweets);
+  res.send(tweet);
 });
 
 if (process.argv[2] === "prod" || process.argv[2] === "production") {
   let privateKey = fs.readFileSync('/etc/letsencrypt/live/arasense.net/privkey.pem', 'utf-8');
   let certificate = fs.readFileSync('/etc/letsencrypt/live/arasense.net/fullchain.pem', 'utf-8');
   
-  https.createServer({
-    key: privateKey,
-    cert: certificate
-  }, app).listen(443);
+  mongodb.connectToServer(function (err) {
+      https.createServer({
+      key: privateKey,
+      cert: certificate
+    }, app).listen(443)
+  });
   
   
   // redicrects users that are on http to https

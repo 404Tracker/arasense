@@ -235,6 +235,9 @@ header {
 .m-t-65 {
   margin-top: 65px;
 }
+.outline-none {
+  outline: none;
+}
 #yes[aria-disabled=true] {
   background: #CFCEC3;
 }

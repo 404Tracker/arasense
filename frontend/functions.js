@@ -7,11 +7,6 @@ function makeId() {
 
   return text;
 }
-function sleep(ms) {
-  var start = new Date().getTime(), expire = start + ms;
-  while (new Date().getTime() < expire) { }
-  return;
-}
 function saveChoice(userId, tweetId, choice) {
   return fetch('/save-choice', {
     method: 'POST',
@@ -24,12 +19,6 @@ function saveChoice(userId, tweetId, choice) {
       'Content-Type': 'application/json'
     })
   });
-}
-function addBackgroundColorToIt(el, color) {
-  el.style.backgroundColor = color;
-}
-function updateStatusId(tweetId) {
-  localStorage.setItem('tweetId', tweetId);
 }
 function removeContextUI() {
   var bar = document.querySelector('#status-wrapper #bar'),
@@ -49,8 +38,6 @@ function removeContextUI() {
   if (theSeparator) {
     theSeparator.remove();
   }
-
-  addBackgroundColorToIt(mainStatus, '#fff');
 }
 function isReplyToStatus(json) {
     // perpare qouted status
@@ -72,6 +59,8 @@ function isReplyToStatus(json) {
         p = document.createElement('p');
   
     p.innerText = json.text;
+    mainStatus.querySelector('#avatar').src = '';
+    mainStatus.querySelector('#avatar').src = "https://twitter.com/" + json.user.screen_name +  "/profile_image?size=mini";
     mainStatus.querySelector('#username').innerHTML = json.user.name;
     mainStatus.querySelector('#twitter-handle').innerHTML = `${json.user.screen_name}@`;
     mainStatus.querySelector('#status-body').innerHTML = '';
@@ -85,7 +74,7 @@ function isQuotedStatus(json) {
   var qoutedStatus = document.getElementById('standard-status').content.cloneNode(true).querySelector('#status-wrapper');
   qoutedStatus.querySelector('#username').innerText = json.quoted_status.user.name;
   qoutedStatus.querySelector('#username').classList.remove('f-s-16');
-  qoutedStatus.querySelector('#twitter-handle').innerText = `${json.quoted_status.user.screen_name}@`;
+  qoutedStatus.querySelector('#twitter-handle').innerText = json.quoted_status.user.screen_name + "@";
   qoutedStatus.querySelector('#twitter-handle').classList.remove('f-s-11');
   qoutedStatus.querySelector('#status-body p').innerText = json.quoted_status.text;
   qoutedStatus.querySelector('img').remove();
@@ -100,8 +89,10 @@ function isQuotedStatus(json) {
       p = document.createElement('p');
 
   p.innerText = json.text;
+  mainStatus.querySelector('#avatar').src = '';
+  mainStatus.querySelector('#avatar').src = "https://twitter.com/" + json.user.screen_name +  "/profile_image?size=mini";
   mainStatus.querySelector('#username').innerHTML = json.user.name;
-  mainStatus.querySelector('#twitter-handle').innerHTML = `${json.user.screen_name}@`;
+  mainStatus.querySelector('#twitter-handle').innerHTML = json.user.screen_name + "@";
   mainStatus.querySelector('#status-body').innerHTML = '';
   mainStatus.querySelector('#status-body').appendChild(p);
   mainStatus.querySelector('#status-body').insertAdjacentElement('beforeend', qoutedStatus);
@@ -112,12 +103,12 @@ function isStandardStatus(json) {
   var mainStatus = document.querySelector('#status-view #status-wrapper'),
       p = document.createElement('p');
 
-  removeContextUI();
-
   p.innerText = json.text;
+  mainStatus.querySelector('#avatar').src = '';
+  mainStatus.querySelector('#avatar').src = "https://twitter.com/" + json.user.screen_name +  "/profile_image?size=mini";
   mainStatus.querySelector('#username').innerHTML = json.user.name;
   mainStatus.querySelector('#username').classList.add('f-s-16');
-  mainStatus.querySelector('#twitter-handle').innerHTML = `${json.user.screen_name}@`;
+  mainStatus.querySelector('#twitter-handle').innerHTML = json.user.screen_name + "@";
   mainStatus.querySelector('#twitter-handle').classList.add('f-s-11');
   mainStatus.querySelector('#status-body').innerHTML = p.innerHTML;
   mainStatus.style.fontSize = 'initial';
@@ -132,42 +123,6 @@ function updateView(json) {
   } else {
     window.isStandardStatus(json);
   }
-}
-function updateUI(json) {
-  // blurrrr the ui
-  var view = document.getElementById('status-view');
-  var handler = function(evt) {
-    updateView(json);
-    // UNblurrrr the ui
-    document.getElementById('status-view').classList.remove('blur-4');
-    setTimeout(enableChoices, 100);
-    evt.target.removeEventListener('transitionend', handler);
-  };
-  
-  view.addEventListener('transitionend', handler);
-  view.classList.add('blur-4');
-}
-function shadowHandlers() {
-  document.getElementById('yes').addEventListener('touchstart', function(e) {
-    this.style.boxShadow = 'initial';
-  });
-  document.getElementById('yes').addEventListener('touchend', function(e) {
-    this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
-  });
-
-  document.getElementById('dontKnow').addEventListener('touchstart', function(e) {
-    this.style.boxShadow = 'initial';
-  });
-  document.getElementById('dontKnow').addEventListener('touchend', function(e) {
-    this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
-  });
-
-  document.getElementById('no').addEventListener('touchstart', function(e) {
-    this.style.boxShadow = 'initial';
-  });
-  document.getElementById('no').addEventListener('touchend', function(e) {
-    this.style.boxShadow = '0px 1.8px 2px rgb(132, 132, 132)';
-  });
 }
 function disableChoices() {
   document.getElementById('yes').classList.remove('choice-shadow');
