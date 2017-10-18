@@ -41,12 +41,9 @@ module.exports = {
     },
 
     addVote: function (tweetId, vote, source) {
-        _tweets.updateOne(
+        return _tweets.updateOne(
             {tweetid: Long.fromString(tweetId)},
-            {$addToSet : {"votes" : {"vote" : parseInt(vote), 'source' : source, 'date' : new Date() } } }, function(err, res) {
-                if (err) throw err;
-                console.log(res.result.nModified + " document(s) updated \n\ttweetId: ",tweetId,"\n\tvote: ",vote,"\n\t source: ",source);
-            });
+            {$addToSet : {"votes" : {"vote" : parseInt(vote), 'source' : source, 'date' : new Date() } } });
 
     },
 

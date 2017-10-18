@@ -24,11 +24,14 @@ app.post('/initial-tweet', async (req, res) => {
 });
 
 app.post('/save-choice', async (req, res) => {
-  mongodb.addVote(
-    req.body.tweetId, 
+  // let update_result = await mongodb.addVote(
+  await mongodb.addVote(
+    req.body.tweetId,
     req.body.choice, 
     req.body.userId
   );
+
+    // console.log(update_result.nModified + " document(s) updated \n\ttweetId: ",tweetId,"\n\tvote: ",vote,"\n\t source: ",source);
 
   let tweet;
   try {
