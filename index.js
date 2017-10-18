@@ -30,7 +30,7 @@ app.post('/initial-tweet', async (req, res) => {
 });
 
 app.post('/save-choice', async (req, res) => {
-  await mongodb.addVote(
+  mongodb.addVote(
     req.body.tweetId, 
     req.body.choice, 
     req.body.userId

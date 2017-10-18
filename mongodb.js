@@ -42,8 +42,8 @@ module.exports = {
 
     addVote: function (tweetId, vote, source) {
         _tweets.updateOne(
-            {"id":parseInt(tweetId)},
-            {$addToSet : {"votes" : {"vote" : vote, 'source' : source, 'date' : new Date() } } }, function(err, res) {
+            {tweetid: parseInt(tweetId)},
+            {$addToSet : {"votes" : {"vote" : parseInt(vote), 'source' : source, 'date' : new Date() } } }, function(err, res) {
                 if (err) throw err;
                 console.log(res.result.nModified + " document(s) updated \n\ttweetId: ",tweetId,"\n\tvote: ",vote,"\n\t source: ",source);
             });
