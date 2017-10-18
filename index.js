@@ -30,7 +30,7 @@ app.post('/save-choice', async (req, res) => {
     req.body.tweetId,
     req.body.choice, 
     req.body.userId,
-    req.body.platform,
+    req.body.device,
     collectIP(req.connection.remoteAddress)
   );
   
