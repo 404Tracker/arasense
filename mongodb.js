@@ -41,12 +41,12 @@ module.exports = {
     },
 
     addVote: function (tweetId, vote, source) {
-        return _tweets.update(
+        _tweets.updateOne(
             {"id":parseInt(tweetId)},
-            {$addToSet : {"votes" : {"vote" : parseInt(vote), 'source' : source, 'date' : new Date() } } },
-            false,
-            true
-        );
+            {$addToSet : {"votes" : {"vote" : vote, 'source' : source, 'date' : new Date() } } }, function(err, res) {
+                if (err) throw err;
+                console.log(res.result.nModified + " document(s) updated");
+            });
 
     },
 
