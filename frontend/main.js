@@ -43,7 +43,7 @@ document.getElementById('yes').addEventListener('click', function(e) {
   document.getElementById('status-view').classList.add('blur-4');
   disableChoices();
   
-  saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, 1)
+  saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, getOperatingSystem(), 1)
   .then(function(res) {
     if (res.ok) {
       return res.json();
@@ -73,7 +73,7 @@ document.getElementById('dontKnow').addEventListener('click', function(e) {
   document.getElementById('status-view').classList.add('blur-4');
   disableChoices();
 
-  saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, 0)
+  saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, getOperatingSystem(), 0)
   .then(function(res) {
     if (res.ok) {
       return res.json();
@@ -103,7 +103,7 @@ document.getElementById('no').addEventListener('click', function(e) {
   document.getElementById('status-view').classList.add('blur-4');
   disableChoices();
   
-  saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, -1)
+  saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, getOperatingSystem(), -1)
   .then(function(res) {
     if (res.ok) {
       return res.json();

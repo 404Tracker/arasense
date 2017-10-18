@@ -7,12 +7,13 @@ function makeId() {
 
   return text;
 }
-function saveChoice(userId, tweetId, choice) {
+function saveChoice(userId, tweetId, device, choice) {
   return fetch('/save-choice', {
     method: 'POST',
     body: JSON.stringify({
       'userId': userId,
       'tweetId': tweetId,
+      'device': device,
       'choice': choice
     }),
     headers: new Headers({
@@ -141,4 +142,25 @@ function enableChoices() {
   document.getElementById('yes').setAttribute('aria-disabled', 'false');
   document.getElementById('dontKnow').setAttribute('aria-disabled', 'false');
   document.getElementById('no').setAttribute('aria-disabled', 'false');
+}
+/**
+ * Determine operating system.
+ * This function returns one of 'iOS', 'Android', 'Desktop', or 'Other' for non ios nor android mobile devices.
+ * 
+ * from stackoverflow: https://stackoverflow.com/questions/21741841/detecting-ios-android-operating-system
+ *
+ * @returns {String}
+ */
+function getOperatingSystem() {
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    if (/android/i.test(userAgent)) {
+        return "Android";
+    }
+    
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return "iOS";
+    }
+
+    return 'ontouchstart' in window ? 'Other' : 'Desktop';
 }

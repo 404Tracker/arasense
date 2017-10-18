@@ -37,13 +37,24 @@ module.exports = {
      * I use this function ONLY for the initial rendering of the app.
      */
     selectFourTweets: function (user_id) {
-        return _tweets.find({'votes.2': {$exists: false},'votes.source': { $ne: user_id }}).sort({importance:-1}).limit(4).toArray();
+        return _tweets.find({'votes.2': {$exists: false},'votes.source': { $ne: user_id }}).sort({importance:-1}).limit(4).toArray();        
     },
 
-    addVote: function (tweetId, vote, source) {
+    addVote: function (tweetId, vote, source, platform, ip) {
         return _tweets.updateOne(
-            {tweetid: Long.fromString(tweetId)},
-            {$addToSet : {"votes" : {"vote" : parseInt(vote), 'source' : source, 'date' : new Date() } } });
+            { tweetid: Long.fromString(tweetId) },
+            { $addToSet : {
+                "votes" : {
+                    "vote" : parseInt(vote), 
+                    'source' : {
+                        'userid': source,
+                        'platform': platform,
+                        'ip': ip
+                    }, 
+                    'date' : new Date() 
+                } 
+            } 
+        });
 
     },
 

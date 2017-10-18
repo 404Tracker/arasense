@@ -5,6 +5,7 @@ const https = require('https');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
+const collectIP = require('./ip.js').collectIP;
 const mongodb = require('./mongodb');
 
 app.use(bodyParser.json());
@@ -24,14 +25,16 @@ app.post('/initial-tweet', async (req, res) => {
 });
 
 app.post('/save-choice', async (req, res) => {
-  // let update_result = await mongodb.addVote(
+  
   let { result } = await mongodb.addVote(
     req.body.tweetId,
     req.body.choice, 
-    req.body.userId
+    req.body.userId,
+    req.body.platform,
+    collectIP(req.connection.remoteAddress)
   );
   
-    console.log(result.nModified + " document(s) updated \n\ttweetId: ",req.body.tweetId,"\n\tvote: ",req.body.choice,"\n\t source: ",req.body.userId);
+  console.log(result.nModified + " document(s) updated \n\ttweetId: ",req.body.tweetId,"\n\tvote: ",req.body.choice,"\n\t source: ",req.body.userId);
 
   let tweet;
   try {
