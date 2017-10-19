@@ -5,7 +5,7 @@ const https = require('https');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
-const collectIP = require('./ip.js').collectIP;
+const collectIP = require('./ip').collectIP;
 const mongodb = require('./mongodb');
 
 app.use(bodyParser.json());
