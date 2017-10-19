@@ -61,7 +61,7 @@ function isReplyToStatus(json) {
   
     p.innerText = json.text;
     mainStatus.querySelector('#avatar').src = '';
-    mainStatus.querySelector('#avatar').src = "https://twitter.com/" + json.user.screen_name +  "/profile_image?size=mini";
+    mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
     mainStatus.querySelector('#username').innerHTML = json.user.name;
     mainStatus.querySelector('#twitter-handle').innerHTML = `${json.user.screen_name}@`;
     mainStatus.querySelector('#status-body').innerHTML = '';
@@ -91,7 +91,7 @@ function isQuotedStatus(json) {
 
   p.innerText = json.text;
   mainStatus.querySelector('#avatar').src = '';
-  mainStatus.querySelector('#avatar').src = "https://twitter.com/" + json.user.screen_name +  "/profile_image?size=mini";
+  mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
   mainStatus.querySelector('#username').innerHTML = json.user.name;
   mainStatus.querySelector('#twitter-handle').innerHTML = json.user.screen_name + "@";
   mainStatus.querySelector('#status-body').innerHTML = '';
@@ -106,7 +106,7 @@ function isStandardStatus(json) {
 
   p.innerText = json.text;
   mainStatus.querySelector('#avatar').src = '';
-  mainStatus.querySelector('#avatar').src = "https://twitter.com/" + json.user.screen_name +  "/profile_image?size=mini";
+  mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
   mainStatus.querySelector('#username').innerHTML = json.user.name;
   mainStatus.querySelector('#username').classList.add('f-s-16');
   mainStatus.querySelector('#twitter-handle').innerHTML = json.user.screen_name + "@";
