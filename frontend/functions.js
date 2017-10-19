@@ -164,3 +164,35 @@ function getOperatingSystem() {
 
     return 'ontouchstart' in window ? 'Other' : 'Desktop';
 }
+
+function displayRefreshWebsite() {
+  var firstP = document.createElement('p'),
+      secondP = document.createElement('p'),
+      wrapper = document.createElement('div');
+  firstP.innerText = 'الإنترنت لا يعمل بصورة صحيحة على جهازك';
+  secondP.innerText = 'لذلك، لم نستطع جلب تغريدة.';
+
+  wrapper.appendChild(firstP);
+  wrapper.appendChild(secondP);
+
+  firstP.classList.add('m-0');
+  secondP.classList.add('m-0');
+  wrapper.classList.add('d-flex', 'f-j-center', 'f-a-center', 'f-dir-column', 'm-t-65');
+  document.getElementById('status-view').nextElementSibling.insertAdjacentElement('afterend', wrapper);
+}
+function lightenHeader() {
+  document.querySelector('header').style.background = '#ecebde';
+}
+function darkenAgreeColor() {
+  document.querySelector('main > h1 span:nth-child(1)').style.color = '#676660';
+}
+function darkenDisagreeColor() {
+  document.querySelector('main > h1 span:nth-child(2)').style.color = '#676660';
+}
+function completeFailure() {
+  displayRefreshWebsite();
+  lightenHeader();
+  darkenAgreeColor();
+  darkenDisagreeColor();
+  disableChoices();
+}
