@@ -26,18 +26,18 @@ app.post('/initial-tweet', async (req, res) => {
 
 app.post('/save-choice', async (req, res) => {
   
-  let { result } = await mongodb.addVote(
-    req.body.tweetId,
-    req.body.choice, 
-    req.body.userId,
-    req.body.device,
-    collectIP(req.connection.remoteAddress)
-  );
-  
-  console.log(result.nModified + " document(s) updated \n\ttweetId: ",req.body.tweetId,"\n\tvote: ",req.body.choice,"\n\t source: ",req.body.userId);
-
   let tweet;
   try {
+    let { result } = await mongodb.addVote(
+      req.body.tweetId,
+      req.body.choice, 
+      req.body.userId,
+      req.body.device,
+      collectIP(req.connection.remoteAddress)
+    );
+
+    console.log(result.nModified + " document(s) updated \n\ttweetId: ",req.body.tweetId,"\n\tvote: ",req.body.choice,"\n\t source: ",req.body.userId);
+    
     tweet = await mongodb.selectTweet(req.body.userId);
   } catch (error) {
     res.writeHead(500, { 'Message': 'couldn\'t get tweet for some reason!' });
