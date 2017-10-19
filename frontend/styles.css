@@ -77,19 +77,19 @@ header {
   border: none;
 }
 .bg-green {
-  background: linear-gradient(#A8E5AB, #63BE64);
+  background: linear-gradient(#97EB88, #5ACC5A);
 }
 .color-green {
-  color: #63BE64;
+  color: #5ACC5A;
 }
 .bg-grayblue {
   background: linear-gradient(#DCE3E5, #97B5BF);
 }
 .bg-orangered {
-  background: linear-gradient(#FFC6BA, #D96F6F);
+  background: linear-gradient(#FF8A80, #FF4A4A);
 }
 .color-orangered {
-  color: #D96F6F;
+  color: #FF4A4A;
 }
 .w75 {
   width: 75px;
@@ -201,7 +201,7 @@ header {
   height: calc(100vh - 85px);
 }
 .bg-choices-gradient {
-  background: linear-gradient(#F6F6F6, #D4D4D4);
+  background-color: #F6F6F6;
 }
 .bottom-0 {
   bottom: 0px;
