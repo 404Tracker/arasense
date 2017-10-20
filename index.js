@@ -9,7 +9,6 @@ const collectIP = require('./ip').collectIP;
 const mongodb = require('./mongodb');
 
 app.use(bodyParser.json());
-app.use('/', express.static('frontend'));
 
 app.post('/initial-tweet', async (req, res) => {
   let tweet;
@@ -49,6 +48,16 @@ app.post('/save-choice', async (req, res) => {
 });
 
 if (process.argv[2] === "prod" || process.argv[2] === "production") {
+  // optimize frontend assets for production
+  let gulp = require('gulp');
+  require('./gulpfile');
+  if (gulp.tasks.default) {
+    gulp.start('default');
+    app.use('/', express.static('frontend/build/'));
+  } else {
+    app.use('/', express.static('frontend/'));
+  }
+  
   let privateKey = fs.readFileSync('/etc/letsencrypt/live/arasense.net/privkey.pem', 'utf-8');
   let certificate = fs.readFileSync('/etc/letsencrypt/live/arasense.net/fullchain.pem', 'utf-8');
   
@@ -67,6 +76,7 @@ if (process.argv[2] === "prod" || process.argv[2] === "production") {
     return res.end();
   }).listen(80);
 } else {
+    app.use('/', express.static('frontend/'));
     mongodb.connectToServer( function( err ) {
         app.listen(4000, _ => console.log('APP IS LISTENING: http://localhost:4000'));
     } );
