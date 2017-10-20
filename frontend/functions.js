@@ -47,7 +47,7 @@ function isReplyToStatus(json) {
     qoutedStatus.querySelector('#username').classList.remove('f-s-16');
     qoutedStatus.querySelector('#twitter-handle').innerText = json.replied_to_status.user.screen_name + "@";
     qoutedStatus.querySelector('#twitter-handle').classList.remove('f-s-11');
-    qoutedStatus.querySelector('#status-body p').innerHTML = hashtagify(json.replied_to_status.text, json.replied_to_status.entities.hashtags);
+    qoutedStatus.querySelector('#status-body p').innerHTML = mentionify(hashtagify(json.replied_to_status.text, json.replied_to_status.entities.hashtags), json.replied_to_status.entities.user_mentions);
     qoutedStatus.querySelector('img').remove();
     qoutedStatus.querySelector('#status-body').classList.remove('m-t-10', 'm-b-0', 'm-r-58');
     qoutedStatus.querySelector('#username').parentElement.classList.remove('m-r-10');
@@ -59,7 +59,7 @@ function isReplyToStatus(json) {
     var mainStatus = document.querySelector('#status-view #status-wrapper'),
         p = document.createElement('p');
   
-    p.innerHTML = hashtagify(json.text, json.entities.hashtags);
+    p.innerHTML = mentionify(hashtagify(json.text, json.entities.hashtags), json.entities.user_mentions);
     mainStatus.querySelector('#avatar').src = '';
     mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
     mainStatus.querySelector('#username').innerHTML = json.user.name;
@@ -77,7 +77,7 @@ function isQuotedStatus(json) {
   qoutedStatus.querySelector('#username').classList.remove('f-s-16');
   qoutedStatus.querySelector('#twitter-handle').innerText = json.quoted_status.user.screen_name + "@";
   qoutedStatus.querySelector('#twitter-handle').classList.remove('f-s-11');
-  qoutedStatus.querySelector('#status-body p').innerHTML = hashtagify(json.quoted_status.text, json.entities.hashtags);
+  qoutedStatus.querySelector('#status-body p').innerHTML = mentionify(hashtagify(json.quoted_status.text, json.quoted_status.entities.hashtags), json.quoted_status.entities.user_mentions);
   qoutedStatus.querySelector('img').remove();
   qoutedStatus.querySelector('#status-body').classList.remove('m-t-10', 'm-b-0', 'm-r-58');
   qoutedStatus.querySelector('#username').parentElement.classList.remove('m-r-10');
@@ -89,7 +89,7 @@ function isQuotedStatus(json) {
   var mainStatus = document.querySelector('#status-view #status-wrapper'),
       p = document.createElement('p');
 
-  p.innerHTML = hashtagify(json.text, json.entities.hashtags);
+  p.innerHTML = mentionify(hashtagify(json.text, json.entities.hashtags), json.entities.user_mentions);
   mainStatus.querySelector('#avatar').src = '';
   mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
   mainStatus.querySelector('#username').innerHTML = json.user.name;
@@ -104,7 +104,7 @@ function isStandardStatus(json) {
   var mainStatus = document.querySelector('#status-view #status-wrapper'),
       p = document.createElement('p');
 
-  p.innerHTML = hashtagify(json.text, json.entities.hashtags);
+  p.innerHTML = mentionify(hashtagify(json.text, json.entities.hashtags), json.entities.user_mentions);
   mainStatus.querySelector('#avatar').src = '';
   mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
   mainStatus.querySelector('#username').innerHTML = json.user.name;
@@ -222,5 +222,19 @@ function hashtagify(text, hashtags) {
     }, text);
 
     return hashtagified.replace(new RegExp('#', 'g'), '<span class="color-blue">#</span>');
+  }
+}
+function mentionify(text, mentions) {
+  if ( mentions.length === 0 ) {
+    return text;
+  } else {
+    var mentionified = mentions.reduce(function(mentionifiedText, mention) {
+      var span = document.createElement('span');
+      span.innerText = mention.screen_name;
+      span.classList.add('color-blue');
+      return mentionifiedText.replace(new RegExp(mention.screen_name), span.outerHTML);
+    }, text);
+
+    return mentionified.replace(new RegExp('@', 'g'), '<span class="color-blue">@</span>');
   }
 }
