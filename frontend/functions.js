@@ -45,7 +45,7 @@ function isReplyToStatus(json) {
     var qoutedStatus = document.getElementById('standard-status').content.cloneNode(true).querySelector('#status-wrapper');
     qoutedStatus.querySelector('#username').innerText = json.replied_to_status.user.name;
     qoutedStatus.querySelector('#username').classList.remove('f-s-16');
-    qoutedStatus.querySelector('#twitter-handle').innerText = `${json.replied_to_status.user.screen_name}@`;
+    qoutedStatus.querySelector('#twitter-handle').innerText = json.replied_to_status.user.screen_name + "@";
     qoutedStatus.querySelector('#twitter-handle').classList.remove('f-s-11');
     qoutedStatus.querySelector('#status-body p').innerHTML = hashtagify(json.replied_to_status.text, json.entities.hashtags);
     qoutedStatus.querySelector('img').remove();
@@ -63,7 +63,7 @@ function isReplyToStatus(json) {
     mainStatus.querySelector('#avatar').src = '';
     mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
     mainStatus.querySelector('#username').innerHTML = json.user.name;
-    mainStatus.querySelector('#twitter-handle').innerHTML = `${json.user.screen_name}@`;
+    mainStatus.querySelector('#twitter-handle').innerHTML = json.user.screen_name + "@";
     mainStatus.querySelector('#status-body').innerHTML = '';
     mainStatus.querySelector('#status-body').appendChild(p);
     mainStatus.querySelector('#status-body').insertAdjacentElement('beforeend', qoutedStatus);
