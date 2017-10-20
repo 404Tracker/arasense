@@ -278,3 +278,6 @@ header {
 .overflow-x-hidden {
   overflow-x: hidden;
 }
+.color-blue {
+  color: blue;
+}

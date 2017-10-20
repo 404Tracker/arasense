@@ -47,7 +47,7 @@ function isReplyToStatus(json) {
     qoutedStatus.querySelector('#username').classList.remove('f-s-16');
     qoutedStatus.querySelector('#twitter-handle').innerText = `${json.replied_to_status.user.screen_name}@`;
     qoutedStatus.querySelector('#twitter-handle').classList.remove('f-s-11');
-    qoutedStatus.querySelector('#status-body p').innerText = json.replied_to_status.text;
+    qoutedStatus.querySelector('#status-body p').innerHTML = hashtagify(json.replied_to_status.text, json.entities.hashtags);
     qoutedStatus.querySelector('img').remove();
     qoutedStatus.querySelector('#status-body').classList.remove('m-t-10', 'm-b-0', 'm-r-58');
     qoutedStatus.querySelector('#username').parentElement.classList.remove('m-r-10');
@@ -59,7 +59,7 @@ function isReplyToStatus(json) {
     var mainStatus = document.querySelector('#status-view #status-wrapper'),
         p = document.createElement('p');
   
-    p.innerText = json.text;
+    p.innerHTML = hashtagify(json.text, json.entities.hashtags);
     mainStatus.querySelector('#avatar').src = '';
     mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
     mainStatus.querySelector('#username').innerHTML = json.user.name;
@@ -77,7 +77,7 @@ function isQuotedStatus(json) {
   qoutedStatus.querySelector('#username').classList.remove('f-s-16');
   qoutedStatus.querySelector('#twitter-handle').innerText = json.quoted_status.user.screen_name + "@";
   qoutedStatus.querySelector('#twitter-handle').classList.remove('f-s-11');
-  qoutedStatus.querySelector('#status-body p').innerText = json.quoted_status.text;
+  qoutedStatus.querySelector('#status-body p').innerHTML = hashtagify(json.quoted_status.text, json.entities.hashtags);
   qoutedStatus.querySelector('img').remove();
   qoutedStatus.querySelector('#status-body').classList.remove('m-t-10', 'm-b-0', 'm-r-58');
   qoutedStatus.querySelector('#username').parentElement.classList.remove('m-r-10');
@@ -89,7 +89,7 @@ function isQuotedStatus(json) {
   var mainStatus = document.querySelector('#status-view #status-wrapper'),
       p = document.createElement('p');
 
-  p.innerText = json.text;
+  p.innerHTML = hashtagify(json.text, json.entities.hashtags);
   mainStatus.querySelector('#avatar').src = '';
   mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
   mainStatus.querySelector('#username').innerHTML = json.user.name;
@@ -104,7 +104,7 @@ function isStandardStatus(json) {
   var mainStatus = document.querySelector('#status-view #status-wrapper'),
       p = document.createElement('p');
 
-  p.innerText = json.text;
+  p.innerHTML = hashtagify(json.text, json.entities.hashtags);
   mainStatus.querySelector('#avatar').src = '';
   mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
   mainStatus.querySelector('#username').innerHTML = json.user.name;
@@ -195,4 +195,32 @@ function completeFailure() {
   darkenAgreeColor();
   darkenDisagreeColor();
   disableChoices();
+}
+function linkify(text, entities) {
+  if ( entities.urls.length === 0 ) {
+    console.log('if block');
+    return text;
+  } else {
+    console.log('else block');
+    return entities.urls.reduce(function(likifiedText, url) {
+      var a = document.createElement('a');
+      a.href = url.expanded_url;
+      a.innerText = url;
+      return likifiedText.replace(new RegExp(url), a);
+    }, text);
+  }
+}
+function hashtagify(text, hashtags) {
+  if ( hashtags.length === 0 ) {
+    return text;
+  } else {
+    var hashtagified = hashtags.reduce(function(hashtagifiedText, hashtag) {
+      var span = document.createElement('span');
+      span.innerText = hashtag.text;
+      span.classList.add('color-blue');
+      return hashtagifiedText.replace(new RegExp(hashtag.text), span.outerHTML);
+    }, text);
+
+    return hashtagified.replace(new RegExp('#', 'g'), '<span class="color-blue">#</span>');
+  }
 }
