@@ -4,6 +4,9 @@
 // Initialize userId ONLY if it was not initialized yet
 localStorage.getItem('userId') || localStorage.setItem('userId', makeId());
 
+// after sending a request the user must wait for this period in milliseconds
+var REQUEST_THRESHOLD = 1000;
+
 // fetch first tweet
 fetch('/initial-tweet', {
   method: 'POST',
@@ -34,13 +37,20 @@ fetch('/initial-tweet', {
  * "YES", "I DON'T KNOW", and "NO" Buttons Handlers. each of the buttons get a new tweet when they are clicked
  */
 document.getElementById('yes').addEventListener('click', function(e) {
-  if (this.getAttribute('aria-disabled') == 'true') {
+
+  if (this.getAttribute('aria-disabled') == 'true' || window.requestPrevented) {
+    console.log('prevented:', this.getAttribute('aria-disabled'), window.requestPrevented);
     return;
   }
 
   // blurrr the ui & disable buttons
   document.getElementById('status-view').classList.add('blur-4');
   disableChoices();
+
+  window.requestPrevented = true;
+  setTimeout(function() {
+    window.requestPrevented = false;
+  }, window.REQUEST_THRESHOLD);
   
   saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, getOperatingSystem(), 1)
   .then(function(res) {
@@ -64,13 +74,19 @@ document.getElementById('yes').addEventListener('click', function(e) {
 });
 
 document.getElementById('dontKnow').addEventListener('click', function(e) {
-  if (this.getAttribute('aria-disabled') == 'true') {
+  if (this.getAttribute('aria-disabled') == 'true' || window.requestPrevented) {
+    console.log('prevented:', this.getAttribute('aria-disabled'), window.requestPrevented);
     return;
   }
 
   // blurrr the ui & disable buttons
   document.getElementById('status-view').classList.add('blur-4');
   disableChoices();
+
+  window.requestPrevented = true;
+  setTimeout(function() {
+    window.requestPrevented = false;
+  }, window.REQUEST_THRESHOLD);
 
   saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, getOperatingSystem(), 0)
   .then(function(res) {
@@ -93,13 +109,19 @@ document.getElementById('dontKnow').addEventListener('click', function(e) {
 });
 
 document.getElementById('no').addEventListener('click', function(e) {
-  if (this.getAttribute('aria-disabled') == 'true') {
+  if (this.getAttribute('aria-disabled') == 'true' || window.requestPrevented) {
+    console.log('prevented:', this.getAttribute('aria-disabled'), window.requestPrevented);
     return;
   }
 
   // blurrr the ui & disable buttons
   document.getElementById('status-view').classList.add('blur-4');
   disableChoices();
+
+  window.requestPrevented = true;
+  setTimeout(function() {
+    window.requestPrevented = false;
+  }, window.REQUEST_THRESHOLD)
   
   saveChoice(localStorage.getItem('userId'), window.currentTweet.tweetid, getOperatingSystem(), -1)
   .then(function(res) {

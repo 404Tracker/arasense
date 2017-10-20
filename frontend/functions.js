@@ -126,18 +126,18 @@ function updateView(json) {
   }
 }
 function disableChoices() {
-  document.getElementById('yes').classList.remove('choice-shadow');
-  document.getElementById('dontKnow').classList.remove('choice-shadow');
-  document.getElementById('no').classList.remove('choice-shadow');
+  document.getElementById('yes').classList.remove('choice-shadow', 'cursor-pointer');
+  document.getElementById('dontKnow').classList.remove('choice-shadow', 'cursor-pointer');
+  document.getElementById('no').classList.remove('choice-shadow', 'cursor-pointer');
 
   document.getElementById('yes').setAttribute('aria-disabled', 'true');
   document.getElementById('dontKnow').setAttribute('aria-disabled', 'true');
   document.getElementById('no').setAttribute('aria-disabled', 'true');
 }
 function enableChoices() {
-  document.getElementById('yes').classList.add('choice-shadow');
-  document.getElementById('dontKnow').classList.add('choice-shadow');
-  document.getElementById('no').classList.add('choice-shadow');
+  document.getElementById('yes').classList.add('choice-shadow', 'cursor-pointer');
+  document.getElementById('dontKnow').classList.add('choice-shadow', 'cursor-pointer');
+  document.getElementById('no').classList.add('choice-shadow', 'cursor-pointer');
   
   document.getElementById('yes').setAttribute('aria-disabled', 'false');
   document.getElementById('dontKnow').setAttribute('aria-disabled', 'false');
