@@ -47,7 +47,7 @@ function isReplyToStatus(json) {
     qoutedStatus.querySelector('#username').classList.remove('f-s-16');
     qoutedStatus.querySelector('#twitter-handle').innerText = json.replied_to_status.user.screen_name + "@";
     qoutedStatus.querySelector('#twitter-handle').classList.remove('f-s-11');
-    qoutedStatus.querySelector('#status-body p').innerHTML = hashtagify(json.replied_to_status.text, json.entities.hashtags);
+    qoutedStatus.querySelector('#status-body p').innerHTML = hashtagify(json.replied_to_status.text, json.replied_to_status.entities.hashtags);
     qoutedStatus.querySelector('img').remove();
     qoutedStatus.querySelector('#status-body').classList.remove('m-t-10', 'm-b-0', 'm-r-58');
     qoutedStatus.querySelector('#username').parentElement.classList.remove('m-r-10');
