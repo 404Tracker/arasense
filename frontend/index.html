@@ -29,8 +29,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
 
   </head>
-  <body class="overflow-y-hidden">
-    <div class="overflow-y-scroll overflow-x-hidden">
+  <body>
+    <div class="overflow-x-hidden">
       <header class="b-b-1 d-flex f-j-sb f-a-center p-0-20">
         <img src="icons/logo.svg" alt="">
         <div>
@@ -98,7 +98,20 @@
         </div>
       </div>
     </template>
-
+    <script>
+      if ( !window.Promise ) {
+        var promisePolyfill = document.createElement('script');
+        promisePolyfill.src = 'https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js';
+        document.head.appendChild(promisePolyfill);
+      }
+    </script>
+    <script>
+      if ( !window.fetch ) {
+        var fetchPolyfill = document.createElement('script');
+        fetchPolyfill.src = '/fetchPolyfill.js';
+        document.head.appendChild(fetchPolyfill);
+      }
+    </script>
     <script src="/functions.js"></script>
     <script src="/main.js"></script>
   </body>
