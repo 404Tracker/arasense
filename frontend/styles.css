@@ -272,3 +272,6 @@ header {
 .cursor-wait {
   cursor: wait;
 }
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
