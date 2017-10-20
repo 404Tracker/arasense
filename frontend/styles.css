@@ -83,7 +83,7 @@ header {
   background: linear-gradient(#97EB88, #5ACC5A);
 }
 .color-green {
-  color: #5ACC5A;
+  color: #008a00;
 }
 .bg-grayblue {
   background: linear-gradient(#DCE3E5, #97B5BF);
@@ -92,7 +92,7 @@ header {
   background: linear-gradient(#FF8A80, #FF4A4A);
 }
 .color-orangered {
-  color: #FF4A4A;
+  color: #ee0000;
 }
 .w75 {
   width: 75px;
