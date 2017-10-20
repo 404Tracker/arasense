@@ -177,7 +177,7 @@ function displayRefreshWebsite() {
 
   firstP.classList.add('m-0');
   secondP.classList.add('m-0');
-  wrapper.classList.add('d-flex', 'f-j-center', 'f-a-center', 'f-dir-column', 'm-t-65');
+  wrapper.classList.add('d-flex', 'f-j-center', 'f-a-center', 'f-dir-column', 'm-t-65', 'm-b-65');
   document.getElementById('status-view').nextElementSibling.insertAdjacentElement('afterend', wrapper);
 }
 function lightenHeader() {
