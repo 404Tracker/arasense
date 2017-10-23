@@ -14,19 +14,14 @@ gulp.task('inline', () => {
   }))
   .pipe(gulp.dest('./frontend/build/'));
 });
-
-gulp.task('copyIcons', () => {
-  return gulp.src('./frontend/icons/*')
-    .pipe(gulp.dest('./frontend/build/icons/'));
-  });
   
-  gulp.task('copyOthers', () => {
-    return gulp.src(['./frontend/*.*', '!./frontend/index.html', '!./frontend/styles.css', '!./frontend/functions.js', '!./frontend/main.js'])
-      .pipe(gulp.dest('./frontend/build/'));
+gulp.task('copyOthers', () => {
+  return gulp.src(['./frontend/*.*', '!./frontend/index.html', '!./frontend/styles.css', '!./frontend/functions.js', '!./frontend/main.js'])
+    .pipe(gulp.dest('./frontend/build/'));
 });
 
 gulp.task('default', () => {
-  runSequence('inline', 'copyIcons', 'copyOthers', () => {
-    console.log('PRODUCTION BUILD IS READY.');
+  runSequence('inline', 'copyOthers', () => {
+    console.log('\nPRODUCTION BUILD IS READY.\n');
   });
 });

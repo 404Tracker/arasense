@@ -8,9 +8,7 @@ body, html {
 * {
   box-sizing: border-box;
 }
-header {
-  height: 52px;
-  width: 100vw;
+.bg-yellow {
   background-color: #fee187;
 }
 .d-flex {
@@ -280,4 +278,7 @@ header {
 }
 .color-blue {
   color: blue;
+}
+.h-7 {
+  height: 7px;
 }

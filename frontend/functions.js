@@ -181,7 +181,7 @@ function displayRefreshWebsite() {
   document.getElementById('status-view').nextElementSibling.insertAdjacentElement('afterend', wrapper);
 }
 function lightenHeader() {
-  document.querySelector('header').style.background = '#ecebde';
+  document.getElementById('top-bar').style.background = '#ecebde';
 }
 function darkenAgreeColor() {
   document.querySelector('main > h1 span:nth-child(1)').style.color = '#676660';
