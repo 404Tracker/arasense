@@ -146,8 +146,17 @@ body, html {
 .w-100vw {
   width: 100vw;
 }
+.h-100vh {
+  height: 100vh;
+}
 .w-100per {
   width: 100%;
+}
+.h-100per-minus-85 {
+  height: calc(100% - 85px);
+}
+.h-100per {
+  height: 100%;
 }
 .w-75per {
   width: 75%;
@@ -281,4 +290,13 @@ body, html {
 }
 .h-7 {
   height: 7px;
+}
+.right-0 {
+  right: 0px;
+}
+.right-100per {
+  right: 100%;
+}
+.translate-y-100per {
+  transform: translateY(100%);
 }

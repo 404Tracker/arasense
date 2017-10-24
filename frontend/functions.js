@@ -26,6 +26,7 @@ function removeContextUI() {
       mainStatus = document.querySelector('#status-wrapper'),
       quotedStatus = document.querySelector('#status-body #status-wrapper'),
       bottomStatus = document.querySelector('#status-view .bottomStatus'),
+      placeholderBars = document.querySelectorAll('#bar'),
       theSeparator = document.querySelector('#the-separator');
   if (bar) {
     bar.remove();
@@ -38,6 +39,14 @@ function removeContextUI() {
   }
   if (theSeparator) {
     theSeparator.remove();
+  }
+  if (placeholderBars) {
+    for (var i = 0; i < placeholderBars.length; i++) {
+      placeholderBars[i].remove();
+    }
+  }
+  if (mainStatus) {
+    mainStatus.querySelector('#status-body').innerHTML = '';
   }
 }
 function isReplyToStatus(json) {
@@ -111,8 +120,21 @@ function isStandardStatus(json) {
   mainStatus.querySelector('#username').classList.add('f-s-16');
   mainStatus.querySelector('#twitter-handle').innerHTML = json.user.screen_name + "@";
   mainStatus.querySelector('#twitter-handle').classList.add('f-s-11');
-  mainStatus.querySelector('#status-body').innerHTML = p.innerHTML;
+  mainStatus.querySelector('#status-body').appendChild(p);
   mainStatus.style.fontSize = 'initial';
+  
+  if (json.entities.media) {
+    for ( var i = 0; i < json.entities.media.length; i++ ) {
+      if (json.entities.media[i].type === 'photo') {
+        var img = document.createElement('img');
+
+        img.src = json.entities.media[i].media_url;
+        img.style.width = '100%';
+        mainStatus.querySelector('#status-body').appendChild(img);
+        break;
+      }
+    }
+  }
 }
 function updateView(json) {
   window.removeContextUI();
