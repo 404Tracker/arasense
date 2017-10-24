@@ -69,8 +69,11 @@ function isReplyToStatus(json) {
         p = document.createElement('p');
   
     p.innerHTML = mentionify(hashtagify(json.text, json.entities.hashtags), json.entities.user_mentions);
-    mainStatus.querySelector('#avatar').src = '';
-    mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
+    if (json.user.profile_image_url) {
+      mainStatus.querySelector('#avatar').setAttribute('src', json.user.profile_image_url);
+    } else {
+      mainStatus.querySelector('#avatar').setAttribute('src', "https://avatars.io/twitter/" + json.user.screen_name);
+    }
     mainStatus.querySelector('#username').innerHTML = json.user.name;
     mainStatus.querySelector('#twitter-handle').innerHTML = json.user.screen_name + "@";
     mainStatus.querySelector('#status-body').innerHTML = '';
@@ -98,9 +101,12 @@ function isQuotedStatus(json) {
   var mainStatus = document.querySelector('#status-view #status-wrapper'),
       p = document.createElement('p');
 
-  p.innerHTML = mentionify(hashtagify(json.text, json.entities.hashtags), json.entities.user_mentions);
-  mainStatus.querySelector('#avatar').src = '';
-  mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
+  p.innerHTML = mentionify(hashtagify(json.text, json.entities.hashtags), json.entities.user_mentions)
+  if (json.user.profile_image_url) {
+    mainStatus.querySelector('#avatar').setAttribute('src', json.user.profile_image_url);
+  } else {
+    mainStatus.querySelector('#avatar').setAttribute('src', "https://avatars.io/twitter/" + json.user.screen_name);
+  }
   mainStatus.querySelector('#username').innerHTML = json.user.name;
   mainStatus.querySelector('#twitter-handle').innerHTML = json.user.screen_name + "@";
   mainStatus.querySelector('#status-body').innerHTML = '';
@@ -113,9 +119,12 @@ function isStandardStatus(json) {
   var mainStatus = document.querySelector('#status-view #status-wrapper'),
       p = document.createElement('p');
 
-  p.innerHTML = mentionify(hashtagify(json.text, json.entities.hashtags), json.entities.user_mentions);
-  mainStatus.querySelector('#avatar').src = '';
-  mainStatus.querySelector('#avatar').src = "https://avatars.io/twitter/" + json.user.screen_name;
+  p.innerHTML = mentionify(hashtagify(json.text, json.entities.hashtags), json.entities.user_mentions)
+  if (json.user.profile_image_url) {
+    mainStatus.querySelector('#avatar').setAttribute('src', json.user.profile_image_url);
+  } else {
+    mainStatus.querySelector('#avatar').setAttribute('src', "https://avatars.io/twitter/" + json.user.screen_name);
+  }
   mainStatus.querySelector('#username').innerHTML = json.user.name;
   mainStatus.querySelector('#username').classList.add('f-s-16');
   mainStatus.querySelector('#twitter-handle').innerHTML = json.user.screen_name + "@";
