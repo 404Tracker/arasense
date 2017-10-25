@@ -10,7 +10,7 @@ module.exports = {
         if (_db) {
             return;
         }
-        MongoClient.connect( "mongodb://arasense.net:27017/arasense_db", function( err, db ) {
+        MongoClient.connect( "mongodb://arasense.net:39378/arasense_db", function( err, db ) {
             _db = db;
             _tweets = db.collection( 'tweets' );
             return callback( err );
