@@ -300,3 +300,6 @@ body, html {
 .translate-y-100per {
   transform: translateY(100%);
 }
+.f-w-bold {
+  font-weight: bold;
+}

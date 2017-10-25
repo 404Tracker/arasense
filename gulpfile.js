@@ -22,6 +22,6 @@ gulp.task('copyOthers', () => {
 
 gulp.task('default', () => {
   runSequence('inline', 'copyOthers', () => {
-    console.log('\nPRODUCTION BUILD IS READY.\n');
+    console.log('\n✓ PRODUCTION BUILD IS READY.\n');
   });
 });

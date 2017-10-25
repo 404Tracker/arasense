@@ -57,27 +57,21 @@ if (process.argv[2] === "prod" || process.argv[2] === "production") {
   } else {
     app.use('/', express.static('frontend/'));
   }
-  
-  let privateKey = fs.readFileSync('/etc/letsencrypt/live/arasense.net/privkey.pem', 'utf-8');
-  let certificate = fs.readFileSync('/etc/letsencrypt/live/arasense.net/fullchain.pem', 'utf-8');
-  
-  mongodb.connectToServer(function (err) {
-      https.createServer({
-      key: privateKey,
-      cert: certificate
-    }, app).listen(443)
-  });
-  
-  
-  // redicrects users that are on http to https
-  http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write('<script>window.location = "https://arasense.net"</script>')
-    return res.end();
-  }).listen(80);
+
+  mongodb.connectToServer( function( err ) {
+      app.listen(80, _ => console.log('\n✓ APP IS LISTENING: http://arasense.net\n'));
+  } );
+
 } else {
-    app.use('/', express.static('frontend/'));
-    mongodb.connectToServer( function( err ) {
-        app.listen(4000, _ => console.log('APP IS LISTENING: http://localhost:4000'));
-    } );
+  app.use('/', express.static('frontend/'));
+  mongodb.connectToServer( function( err ) {
+      app.listen(4000, _ => console.log('\n✓ APP IS LISTENING: http://localhost:4000\n'));
+  } );
 }
+
+
+process.on('SIGINT', function() {
+  if (mongodb.getDb())
+    mongodb.getDb().close();
+    process.exit();
+});
