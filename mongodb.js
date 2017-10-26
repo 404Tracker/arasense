@@ -20,17 +20,10 @@ module.exports = {
     getDb: function() {
         return _db;
     },
-
-    getTweets: function () {
-        return _tweets;
-    },
-
-    getNextTweet: function () {
-        return _tweets.findOne();
-    },
+    
     
     selectTweet: function (user_id) {
-        return _tweets.find({'votes.2': {$exists: false},'votes.source.userid': { $ne: user_id }}).sort({importance:-1}).limit(1).toArray();
+        return _tweets.find({'votes.3': {$exists: false},'votes.source.userid': { $ne: user_id }}).sort({importance:-1}).limit(1).toArray();
     },
 
     addVote: function (tweetId, vote, source, platform, ip) {
