@@ -3,6 +3,8 @@
  */
 // Initialize userId ONLY if it was not initialized yet
 localStorage.getItem('userId') || localStorage.setItem('userId', makeId());
+localStorage.getItem('tweets_count') || getTweetsCount(localStorage.getItem('userId'));
+localStorage.getItem('tweets_count') && updateCounterUI(localStorage.getItem('tweets_count'));
 
 // after sending a request the user must wait for this period in milliseconds
 var REQUEST_THRESHOLD = 1000;
@@ -46,6 +48,15 @@ document.getElementById('yes').addEventListener('click', function(e) {
   // blurrr the ui & disable buttons
   document.getElementById('status-view').classList.add('blur-4');
   disableChoices();
+  if (localStorage.getItem('tweets_count')) {
+    updateCounterStorage(
+      parseInt(localStorage.getItem('tweets_count')) + 1
+    );
+    updateCounterUI(localStorage.getItem('tweets_count'));
+  } else {
+    // retry to get tweets from server
+    getTweetsCount(localStorage.getItem('userId'));
+  }
 
   window.requestPrevented = true;
   setTimeout(function() {
@@ -82,6 +93,15 @@ document.getElementById('dontKnow').addEventListener('click', function(e) {
   // blurrr the ui & disable buttons
   document.getElementById('status-view').classList.add('blur-4');
   disableChoices();
+  if (localStorage.getItem('tweets_count')) {
+    updateCounterStorage(
+      parseInt(localStorage.getItem('tweets_count')) + 1
+    );
+    updateCounterUI(localStorage.getItem('tweets_count'));
+  } else {
+    // retry to get tweets from server
+    getTweetsCount(localStorage.getItem('userId'));
+  }
 
   window.requestPrevented = true;
   setTimeout(function() {
@@ -117,6 +137,15 @@ document.getElementById('no').addEventListener('click', function(e) {
   // blurrr the ui & disable buttons
   document.getElementById('status-view').classList.add('blur-4');
   disableChoices();
+  if (localStorage.getItem('tweets_count')) {
+    updateCounterStorage(
+      parseInt(localStorage.getItem('tweets_count')) + 1
+    );
+    updateCounterUI(localStorage.getItem('tweets_count'));
+  } else {
+    // retry to get tweets from server
+    getTweetsCount(localStorage.getItem('userId'));
+  }
 
   window.requestPrevented = true;
   setTimeout(function() {

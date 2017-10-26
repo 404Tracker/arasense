@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#fee187" />
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/odometer-theme-default.css">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108615194-1"></script>
     <script>
@@ -25,7 +26,12 @@
   </head>
   <body>
     <div class="overflow-x-hidden">
-      <div id="top-bar" class="w-100vw h-7 bg-yellow b-b-1"></div>
+      <header class="b-b-1 d-flex f-j-sb f-a-center p-10-20 w-100vw bg-yellow">
+        <img src="/logo.svg" width="38" alt="">
+        <div>
+          التغريدة: <span id="tweets-counter" class="odometer ltr">?</span>
+        </div>
+      </header>
       <main class="m-t-65 m-rl-auto w-max-600">
         <h1 class="p-0-20 f-s-1n2em x-f-s-2em">هل التغريدة التالية <span class="color-green">توافق</span> أم <span class="color-orangered">لا توافق</span> على قيادة المرأة للسيارة؟</h1>
         <span class="h-1 w-100per d-block bg-lightgray"></span>
@@ -101,6 +107,7 @@
         document.head.appendChild(fetchPolyfill);
       }
     </script>
+    <script src="/odometer.min.js"></script>
     <script src="/functions.js"></script>
     <script src="/main.js"></script>
   </body>

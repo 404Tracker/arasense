@@ -47,6 +47,19 @@ app.post('/save-choice', async (req, res) => {
   res.send(tweet);
 });
 
+app.post('/tweets-count', async (req, res) => {
+  let count;
+  try {
+    count = await mongodb.getVotesCount(req.body.userId);
+  } catch (error) {
+    res.writeHead(500, { 'Message': 'couldn\'t get tweet for some reason!' });
+    res.end();
+    return;
+  }
+  
+  res.send(JSON.stringify(count));
+});
+
 if (process.argv[2] === "prod" || process.argv[2] === "production") {
   // optimize frontend assets for production
   let gulp = require('gulp');

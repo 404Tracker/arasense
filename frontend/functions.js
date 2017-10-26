@@ -215,7 +215,7 @@ function displayRefreshWebsite() {
   document.getElementById('status-view').nextElementSibling.insertAdjacentElement('afterend', wrapper);
 }
 function lightenHeader() {
-  document.getElementById('top-bar').style.background = '#ecebde';
+  document.querySelector('header').style.background = '#ecebde';
 }
 function darkenAgreeColor() {
   document.querySelector('main > h1 span:nth-child(1)').style.color = '#676660';
@@ -271,4 +271,36 @@ function mentionify(text, mentions) {
 
     return mentionified.replace(new RegExp('@', 'g'), '<span class="color-blue">@</span>');
   }
+}
+function updateCounterStorage(number) {
+  localStorage.setItem('tweets_count', number);
+}
+function updateCounterUI(number) {
+  document.getElementById('tweets-counter').innerHTML = number;
+}
+function getTweetsCount(userId) {
+  
+  fetch('/tweets-count', {
+    method: 'POST',
+    body: JSON.stringify({
+      'userId': userId,
+    }),
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    })
+  })
+    .then(function(response) {
+      if (response.ok) {
+        return response.json();
+      }
+
+      throw new Error('response is weird');
+    })
+    .then(function(count) {
+      updateCounterStorage(count);
+      updateCounterUI(localStorage.getItem('tweets_count'))
+    })
+    .catch(function(err) {
+      console.error(err);
+    })
 }
