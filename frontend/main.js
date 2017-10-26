@@ -57,6 +57,11 @@ document.getElementById('yes').addEventListener('click', function(e) {
     // retry to get tweets from server
     getTweetsCount(localStorage.getItem('userId'));
   }
+  if (localStorage.getItem('tweets_count')) {
+    tryToCelebrate(
+      parseInt(localStorage.getItem('tweets_count'))
+    );
+  }
 
   window.requestPrevented = true;
   setTimeout(function() {
@@ -101,6 +106,11 @@ document.getElementById('dontKnow').addEventListener('click', function(e) {
     // retry to get tweets from server
     getTweetsCount(localStorage.getItem('userId'));
   }
+  if (localStorage.getItem('tweets_count')) {
+    tryToCelebrate(
+      parseInt(localStorage.getItem('tweets_count'))
+    );
+  }
 
   window.requestPrevented = true;
   setTimeout(function() {
@@ -144,6 +154,11 @@ document.getElementById('no').addEventListener('click', function(e) {
   } else {
     // retry to get tweets from server
     getTweetsCount(localStorage.getItem('userId'));
+  }
+  if (localStorage.getItem('tweets_count')) {
+    tryToCelebrate(
+      parseInt(localStorage.getItem('tweets_count'))
+    );
   }
 
   window.requestPrevented = true;

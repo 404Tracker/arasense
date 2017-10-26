@@ -218,6 +218,12 @@ body, html {
 .transition-quarter {
   transition: all .25s ease-in-out;
 }
+.transition-1 {
+  transition: all 1.4s ease-in-out;
+}
+.transition-2 {
+  transition: all 2s ease-in-out;
+}
 .transition-3 {
   transition: all 3s ease-in-out;
 }

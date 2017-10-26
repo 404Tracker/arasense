@@ -304,3 +304,64 @@ function getTweetsCount(userId) {
       console.error(err);
     })
 }
+function pickEmoji() {
+  var emojis = ['🎻', '🏆', '⛹️‍', '🏋️', '🎉', '🎊', '🔥'];
+  var luckyEmoji = Math.abs(Math.floor(Math.random() * 10) - 3);
+
+  return emojis[luckyEmoji];
+}
+function celebrate(emoji) {
+  
+  var emojiHolder = document.createElement('span'),
+      wrapper = document.createElement('div'),
+      count = document.createElement('span');
+      
+  emojiHolder.innerHTML = emoji;
+
+  // center this sucker
+  wrapper.style.position = 'absolute';
+  wrapper.style.left = '50%';
+  wrapper.style.top = '50%';
+  wrapper.style.transform = 'translate(-50%, -50%)';
+  // it is centered now!!
+
+  // display this sucker on top of everything
+  wrapper.style.zIndex = 9999;
+  
+  // things
+  wrapper.id = 'emoji-wrapper';
+  wrapper.style.fontSize = '180px';
+  wrapper.style.textShadow = '0px 0px 5px black';
+  wrapper.style.opacity = 0;
+  wrapper.classList.add('transition-2');
+  setTimeout(function() {
+    wrapper.style.opacity = 1;
+    var fuckThis = function(evt) {
+      this.removeEventListener('transitionend', fuckThis);
+      this.style.opacity = 0;
+      setTimeout(function() {
+        // document.getElementById('emoji-wrapper').remove();
+      }, 1000)
+    };
+    wrapper.addEventListener('transitionend', fuckThis)
+  }, 1000)
+
+  count.innerHTML = localStorage.getItem('tweets_count');
+  count.style.backgroundColor = '#ffe777';
+  count.style.borderRadius = '30%';
+  count.style.padding = '0px 35px';
+  count.style.boxShadow = '0px 0px 4px gray';
+
+  wrapper.classList.add('d-flex', 'f-dir-column', 'f-j-center', 'f-a-center');
+  wrapper.appendChild(emojiHolder);
+  wrapper.appendChild(count);
+
+  document.body.insertAdjacentElement('afterbegin', wrapper);
+}
+function tryToCelebrate(tweetsCount) {
+  if (tweetsCount % 50 === 0) {
+    celebrate(
+      pickEmoji()
+    );
+  }
+}
