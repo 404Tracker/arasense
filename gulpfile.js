@@ -16,8 +16,16 @@ gulp.task('inline', () => {
 });
   
 gulp.task('copyOthers', () => {
-  return gulp.src(['./frontend/*.*', '!./frontend/index.html', '!./frontend/styles.css', '!./frontend/functions.js', '!./frontend/main.js'])
-    .pipe(gulp.dest('./frontend/build/'));
+  return gulp.src([
+    './frontend/*.*', 
+    '!./frontend/logo.svg', 
+    '!./frontend/index.html', 
+    '!./frontend/styles.css', 
+    '!./frontend/odometer-theme-default.css', 
+    '!./frontend/functions.js', 
+    '!./frontend/odometer.min.js', 
+    '!./frontend/main.js'
+  ]).pipe(gulp.dest('./frontend/build/'));
 });
 
 gulp.task('default', () => {
