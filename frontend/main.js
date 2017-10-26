@@ -32,7 +32,7 @@ fetch('/initial-tweet', {
     enableChoices();
   })
   .catch(function(err) {
-    completeFailure();
+    window.location = "";
   });
 
 /**
@@ -78,8 +78,7 @@ document.getElementById('yes').addEventListener('click', function(e) {
     enableChoices();
   })
   .catch(function(error) {
-    console.log(error);
-    // TODO:: show sad face with message to refresh or check internet connection
+    window.location = "";
   });
 
 });
@@ -123,7 +122,7 @@ document.getElementById('dontKnow').addEventListener('click', function(e) {
     enableChoices();
   })
   .catch(function(error) {
-    completeFailure();
+    window.location = "";
   });
   
 });
@@ -167,7 +166,7 @@ document.getElementById('no').addEventListener('click', function(e) {
     enableChoices();
   })
   .catch(function(error) {
-    completeFailure();
+    window.location = "";
   });
 
 });
