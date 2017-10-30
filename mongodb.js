@@ -23,7 +23,7 @@ module.exports = {
     
     
     selectTweet: function (user_id) {
-        return _tweets.find({'votes.3': {$exists: false},'votes.source.userid': { $ne: user_id }}).sort({importance:-1}).limit(1).toArray();
+        return _tweets.find({'votes.3': {$exists: false},'votes.source.userid': { $ne: user_id }}, {votes: 0, importance:0}).sort({importance:-1}).limit(1).toArray();
     },
 
     getVotesCount: function (user_id) {
